@@ -1,0 +1,107 @@
+trigger:
+- master
+
+variables:
+  isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+
+jobs:
+
+- job: API
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+
+  - task: DotNetCoreCLI@2
+    condition: eq(variables.isMaster, false)
+    inputs:
+        command: test
+        projects: 'backend/WebApiTests'
+        arguments: --logger trx
+        publishTestResults: true
+    displayName: 'Test'
+
+  - powershell: cd backend/WebApi;
+      $tag = git describe;
+      dotnet publish -c Release /p:version=$tag /p:build=$(Build.BuildNumber) --output "./publish"
+    displayName: 'Build'
+
+  - task: PublishBuildArtifacts@1    
+    displayName: 'Upload'
+    inputs:
+      pathtoPublish: './backend/WebApi/publish'
+      artifactName: 'webapi'
+
+
+- job: WebApp_Tests_Lint
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '12.x'
+    displayName: 'Node.js'
+
+  - script: |
+      cd frontend/web-app
+      npm install -g @angular/cli
+    displayName: 'Angular'
+
+  - task: Npm@1
+    displayName: 'Install'
+    inputs:
+      command: install
+      workingDir: frontend/web-app
+
+  - script: |
+      cd frontend/web-app
+      npm run lint
+    displayName: 'Lint'
+    condition: eq(variables.isMaster, false)
+
+  - script: |
+      cd frontend/web-app
+      npm run test-single-headless
+    displayName: 'Test'
+    condition: eq(variables.isMaster, false)
+
+  - task: PublishTestResults@2
+    displayName: 'Publish tests'
+    condition: and(succeededOrFailed(), eq(variables.isMaster, false))
+    inputs:
+      testResultsFiles: 'frontend/web-app/*.xml'
+
+- job: WebApp
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+      
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '12.x'
+    displayName: 'Node.js'
+
+  - script: |
+      cd frontend/web-app
+      npm install -g @angular/cli
+    displayName: 'Angular'
+
+  - task: Npm@1
+    displayName: 'Install'
+    inputs:
+      command: install
+      workingDir: frontend/web-app
+      
+  - script: |
+      cd frontend/web-app
+      ng build --configuration=production --output-hashing=all --output-path=./dist
+    displayName: 'Build'
+
+  - task: PublishBuildArtifacts@1    
+    displayName: 'Upload'
+    inputs:
+      pathtoPublish: './frontend/web-app/dist'
+      artifactName: 'web_app'
