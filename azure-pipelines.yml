@@ -34,6 +34,7 @@ jobs:
 
 
 - job: WebApp_Tests_Lint
+  condition: eq(variables.isMaster, false)
   pool:
     vmImage: 'ubuntu-latest'
 
@@ -59,17 +60,15 @@ jobs:
       cd frontend/web-app
       npm run lint
     displayName: 'Lint'
-    condition: eq(variables.isMaster, false)
 
   - script: |
       cd frontend/web-app
       npm run test-single-headless
     displayName: 'Test'
-    condition: eq(variables.isMaster, false)
 
   - task: PublishTestResults@2
     displayName: 'Publish tests'
-    condition: and(succeededOrFailed(), eq(variables.isMaster, false))
+    condition: succeededOrFailed()
     inputs:
       testResultsFiles: 'frontend/web-app/*.xml'
 
