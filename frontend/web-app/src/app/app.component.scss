@@ -1,0 +1,15 @@
+@import './scss/animations/fadeIn.scss';
+
+.wrapper {
+    @include fadeIn(1.5s);
+}
+
+.footer {
+    position: fixed;
+    padding: 0 15px 8px 0;
+    right: 0;
+    bottom: 0;
+    color: rgba(0, 0, 0, 0.4);
+    @include fadeIn(5s);
+    font-size: 14px;
+}

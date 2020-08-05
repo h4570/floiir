@@ -1,0 +1,63 @@
+@import "./../../../variables.scss";
+@import './../../scss/animations/fadeIn.scss';
+
+a {
+    color: white;
+}
+
+.flag-btn {
+    padding: 0 14px 0 10px;
+}
+
+header {
+    @include fadeIn(0.5s);
+    color: white;
+    background-color: $theme-color;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+
+    .header-container {
+        display: grid;
+        grid-template-columns: 200px auto;
+        padding: 20px;
+
+        .app-name-area {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 22px;
+            padding: 0 20px 0 30px;
+
+            .app-icon {
+                position: absolute;
+                margin-top: 6px;
+            }
+
+            .app-name {
+                margin-left: 25px;
+            }
+
+        }
+
+        .user-area {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 60px 0 20px;
+
+            .nav-spacer {
+                width: 20px;
+                height: 1px;
+            }
+
+            .nav-btn {
+                font-weight: 700;
+            }
+
+        }
+
+    }
+
+
+}

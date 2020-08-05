@@ -1,0 +1,11 @@
+<app-navbar></app-navbar>
+
+<ng-container>
+    <div class="wrapper" style="padding:0;">
+        <router-outlet></router-outlet>
+    </div>
+</ng-container>
+
+<div class="footer no-select">
+    Build: {{appService.build}} Version: {{appService.version}}
+</div>
