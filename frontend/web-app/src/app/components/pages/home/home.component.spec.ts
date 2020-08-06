@@ -4,6 +4,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { AppHistoryService } from 'src/app/services/app-history.service';
 
 describe('HomeComponent', () => {
 
@@ -27,7 +28,8 @@ describe('HomeComponent', () => {
         HomeComponent
       ],
       providers: [
-        TranslateService
+        TranslateService,
+        AppHistoryService
       ]
     }).compileComponents();
   }));
