@@ -13,7 +13,6 @@ jobs:
   steps:
 
   - task: DotNetCoreCLI@2
-    condition: eq(variables.isMaster, false)
     inputs:
         command: test
         projects: 'backend/WebApiTests'
@@ -32,9 +31,7 @@ jobs:
       pathtoPublish: './backend/WebApi/publish'
       artifactName: 'webapi'
 
-
 - job: WebApp_Tests_Lint
-  condition: eq(variables.isMaster, false)
   pool:
     vmImage: 'ubuntu-latest'
 
@@ -60,6 +57,7 @@ jobs:
       cd frontend/web-app
       npm run lint
     displayName: 'Lint'
+    condition: eq(variables.isMaster, false)
 
   - script: |
       cd frontend/web-app
