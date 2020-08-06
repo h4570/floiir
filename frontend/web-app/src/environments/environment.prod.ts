@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   urls: {
-    app: 'https://app.com/',
-    api: 'https://app.com/api/'
+    app: 'https://floiir.azurewebsites.net/',
+    api: 'https://floiir.azurewebsites.net/api/'
   }
 };
