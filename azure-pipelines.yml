@@ -23,7 +23,11 @@ jobs:
   - task: FileTransform@2
     inputs:
       folderPath: '$(System.DefaultWorkingDirectory)/backend/WebApi/'
-      jsonTargetFiles: 'appsettings.json'
+      enableXmlTransform: false
+      fileType: json
+      targetFiles: 'appsettings.json'
+    condition: eq(variables.isMaster, true)
+    displayName: 'Replace token'
 
   - powershell: cd backend/WebApi;
       $tag = git describe;
