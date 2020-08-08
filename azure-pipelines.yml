@@ -16,9 +16,24 @@ jobs:
     inputs:
         command: test
         projects: 'backend/WebApiTests'
-        arguments: --logger trx
+        arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/coverage.xml --logger trx
         publishTestResults: true
     displayName: 'Test'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/backend/WebApiTests/TestResults/coverage.xml'
+      failIfCoverageEmpty: true'
+    displayName: 'Coverage'
+
+  - task: FileTransform@2
+    inputs:
+      folderPath: '$(System.DefaultWorkingDirectory)/backend/WebApi/'
+      xmlTransformationRules: '' # disabled
+      jsonTargetFiles: 'appsettings.json'
+    condition: eq(variables.isMaster, true)
+    displayName: 'Replace token'
 
   - powershell: cd backend/WebApi;
       $tag = git describe;

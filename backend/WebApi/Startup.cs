@@ -35,9 +35,9 @@ namespace WebApi
                 envName = "prd";
             }
 
-            var entityConnectionString = env.Connections.Main;
+            var entityConnectionString = env.Connections.Postgresql;
 
-            services.AddDbContext<AppDbContext>(options => { options.UseSqlServer(entityConnectionString); });
+            services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(entityConnectionString); });
 
             services.AddCors(options =>
                         options.AddDefaultPolicy(builder =>
