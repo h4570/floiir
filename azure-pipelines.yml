@@ -26,6 +26,7 @@ jobs:
       enableXmlTransform: false
       fileType: json
       targetFiles: 'appsettings.json'
+      xmlTransformationRules: '' # disabled
     # condition: eq(variables.isMaster, true)
     displayName: 'Replace token'
 
