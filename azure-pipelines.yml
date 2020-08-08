@@ -16,7 +16,7 @@ jobs:
     inputs:
         command: test
         projects: 'backend/WebApiTests'
-        arguments: /p:CollectCoverage=true --logger trx
+        arguments: /p:CollectCoverage=true /p:CoverletOutput=./TestResults/coverage.json --logger trx
         publishTestResults: true
     displayName: 'Test'
 
