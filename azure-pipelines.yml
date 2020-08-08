@@ -20,6 +20,11 @@ jobs:
         publishTestResults: true
     displayName: 'Test'
 
+  - task: FileTransform@2
+    inputs:
+      folderPath: '$(System.DefaultWorkingDirectory)/backend/WebApi/'
+      jsonTargetFiles: 'appsettings.json'
+
   - powershell: cd backend/WebApi;
       $tag = git describe;
       dotnet publish -c Release /p:version=$tag /p:build=$(Build.BuildNumber) --output "./publish"
