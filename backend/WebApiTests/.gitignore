@@ -6,6 +6,7 @@ project.lock.json
 nupkg/
 
 coverage.json
+coverage.xml
 
 # Visual Studio Code
 .vscode
