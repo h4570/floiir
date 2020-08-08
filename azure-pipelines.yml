@@ -20,6 +20,13 @@ jobs:
         publishTestResults: true
     displayName: 'Test'
 
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/backend/WebApiTests/TestResults/coverage.xml'
+      failIfCoverageEmpty: true'
+    displayName: 'Coverage'
+
   - task: FileTransform@2
     inputs:
       folderPath: '$(System.DefaultWorkingDirectory)/backend/WebApi/'
