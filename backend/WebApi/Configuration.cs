@@ -22,7 +22,8 @@ namespace WebApi
 
     public class Connections
     {
-        public string Main { get; set; }
+        public string Postgresql { get; set; }
+        public string Mongodb { get; set; }
     }
 
 }
