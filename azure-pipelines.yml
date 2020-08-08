@@ -25,7 +25,7 @@ jobs:
       folderPath: '$(System.DefaultWorkingDirectory)/backend/WebApi/'
       xmlTransformationRules: '' # disabled
       jsonTargetFiles: 'appsettings.json'
-    # condition: eq(variables.isMaster, true)
+    condition: eq(variables.isMaster, true)
     displayName: 'Replace token'
 
   - powershell: cd backend/WebApi;
