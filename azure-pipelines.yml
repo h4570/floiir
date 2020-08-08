@@ -23,10 +23,8 @@ jobs:
   - task: FileTransform@2
     inputs:
       folderPath: '$(System.DefaultWorkingDirectory)/backend/WebApi/'
-      enableXmlTransform: false
-      fileType: json
-      targetFiles: 'appsettings.json'
       xmlTransformationRules: '' # disabled
+      jsonTargetFiles: 'appsettings.json'
     # condition: eq(variables.isMaster, true)
     displayName: 'Replace token'
 
