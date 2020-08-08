@@ -6,7 +6,6 @@
 [![Coverage Status](https://img.shields.io/azure-devops/coverage/tasob/floiir/1/master)](https://dev.azure.com/tasob/floiir/_testManagement/runs)\
 [![Backend CD Status](https://vsrm.dev.azure.com/tasob/_apis/public/Release/badge/d7134f6d-faf1-4986-b977-820b14ad602d/1/1)](https://dev.azure.com/tasob/floiir/_release?_a=releases&view=mine&definitionId=1)
 [![Frontend CD Status](https://vsrm.dev.azure.com/tasob/_apis/public/Release/badge/d7134f6d-faf1-4986-b977-820b14ad602d/1/2)](https://dev.azure.com/tasob/floiir/_release?_a=releases&view=mine&definitionId=1)\
-TODO: Coveralls badge
 
 ### Space management system for companies
 
