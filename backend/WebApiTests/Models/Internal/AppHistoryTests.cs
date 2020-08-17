@@ -11,10 +11,12 @@ namespace WebApi.Models.Internal.Tests
     {
 
         [TestMethod()]
-        public void AppHistoryTest1()
+        public void AppHistoryLongDescriptionShouldBeTrimmedTest()
         {
-            var desc = "X5cR3OY6AOPAIgxnRq1EeaAliIIs2giXkCJFKLBuPZI6CBSwKNLLKpePACWBd0efXnEnnpzCuBvuKg7EYpuvvHxRWnqTlDsIujAsdbFa5Dj1f6nZgObEc4ujP5Os6mCowJGjzuX3aN43bK5P31Wy9C18TsXPKOWXdB5KQuWYOsWZRsm9pujlikzHJA2ihvAJlQCtCqcatMF27GJBOP";
-            var obj = new AppHistory(AppTable.TableName, AppHistoryType.Add, 1, "1", 1, desc);
+            var desc = new StringBuilder();
+            for (var i = 0; i < 250; i++)
+                desc.Append(i);
+            var obj = new AppHistory(AppTable.TableName, AppHistoryType.Add, 1, "1", 1, desc.ToString());
             Assert.IsTrue(obj.Description.Length == 199);
         }
 
