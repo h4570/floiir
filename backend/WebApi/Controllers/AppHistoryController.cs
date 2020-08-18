@@ -33,7 +33,6 @@ namespace WebApi.Controllers
                     DateTime = DateTime.Now,
                     TableId = (AppTable)tableId,
                     Type = AppHistoryType.Add,
-                    UserName = "John Doe",
                     UserId = 12
                 }
             };
