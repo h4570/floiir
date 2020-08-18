@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Models.Internal
 {
@@ -35,7 +36,9 @@ namespace WebApi.Models.Internal
         public AppTable TableId { get; set; }
         public int? ElementId { get; set; }
         public AppHistoryType Type { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
+        public User User { get; set; }
         [StringLength(50)]
         public string UserName { get; set; }
         public DateTime DateTime { get; set; }
