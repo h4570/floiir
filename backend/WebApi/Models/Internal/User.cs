@@ -15,5 +15,8 @@ namespace WebApi.Models.Internal
         [Required]
         [StringLength(254)]
         public string Email { get; set; }
+
+        public string FullName { get { return $"{FirstName} {LastName}"; } }
+
     }
 }
