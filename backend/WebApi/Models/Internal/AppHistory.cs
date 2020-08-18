@@ -26,7 +26,7 @@ namespace WebApi.Models.Internal
             ElementId = elementId;
             if (description != null)
             {
-                if (description.Length > 199) description = description.Substring(0, 199);
+                if (description.Length > 200) description = description.Substring(0, 200);
                 Description = description;
             }
         }
