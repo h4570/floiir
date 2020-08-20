@@ -1,0 +1,14 @@
+@import './../scss/variables.scss';
+@import './animations/fadeIn.scss';
+
+.notification {
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    @include fadeIn(2.5s);
+}
+
+.n-green {
+    background-color: $light-green;
+    color: $dark-gray;
+}

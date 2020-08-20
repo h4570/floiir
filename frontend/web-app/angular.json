@@ -29,6 +29,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/app/scss/notification.scss",
               "src/app/scss/simple-grid.scss"
             ],
             "scripts": []
