@@ -19,6 +19,11 @@ namespace WebApi.Controllers
             _context = new AppDbContext(options);
         }
 
+        /// <summary>
+        /// Used for checking invitation key in frontend (register component)
+        /// </summary>
+        /// <param name="key">Valid key should be created in database and have x chars length</param>
+        /// <returns>410 when key is invalid, 420 when key was not found</returns>
         [HttpGet]
         [Route("{key}")]
         public async Task<ActionResult<InvitationKey>> Get(string key)
@@ -32,9 +37,9 @@ namespace WebApi.Controllers
                     .SingleOrDefaultAsync(c => c.Key == key);
                 if (foundKeyObj != null)
                     return foundKeyObj;
-                else return BadRequest("Given invitation key was not found.");
+                else return StatusCode(420, "Given invitation key was not found.");
             }
-            else return BadRequest("Given invitation key is invalid.");
+            else return StatusCode(410, "Given invitation key is invalid.");
         }
 
     }
