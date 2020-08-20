@@ -1,1 +1,47 @@
-<p>register works!</p>
+<div class="container">
+
+    <div class="small-spacer"></div>
+
+    <div class="row">
+
+        <div *ngIf="invKeyManager.isSuccess" class="col-12" class="notification n-green">
+            Welcome to Floiir! You was invited by: {{ invKeyManager.invitationKey.inviter.fullName }}
+        </div>
+
+        <div *ngIf="invKeyManager.isError" class="col-12" class="notification n-red">
+            Oops! We've encountered error with your invitation key. Please contact administrator.
+        </div>
+
+        <div *ngIf="invKeyManager.wasKeyNotFound" class="col-12" class="notification n-red">
+            Oops! Flooir did not find this invitation key. Please contact administrator.
+        </div>
+
+        <div *ngIf="invKeyManager.isKeyInvalid" class="col-12" class="notification n-red">
+            Oops! It looks that this invitation key is invalid. Please contact the person who invited you.
+        </div>
+
+        <div *ngIf="invKeyManager.wasKeyUsed" class="col-12" class="notification n-red">
+            Oops! It looks that this invitation key was already used. Please contact the person who invited you.
+        </div>
+
+    </div>
+
+    <div class="row" class="header-row" *ngIf="invKeyManager.isSuccess">
+        <div class="col-12" class="header">
+            Register
+        </div>
+    </div>
+
+    <div class="row" *ngIf="invKeyManager.isSuccess">
+        <div class="col-12">
+            Login
+        </div>
+        <div class="col-12">
+            Password
+        </div>
+        <div class="col-12">
+            Email
+        </div>
+    </div>
+
+</div>
