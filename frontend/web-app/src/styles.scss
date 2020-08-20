@@ -1,4 +1,6 @@
+@import './app/scss/variables.scss';
 @import '~@angular/material/theming';
+
 $custom-typography: mat-typography-config($font-family: 'Lato');
 @include mat-core($custom-typography);
 $app-primary: mat-palette($mat-blue-grey, 900);
@@ -6,7 +8,6 @@ $app-accent: mat-palette($mat-pink, A200, A100, A400);
 $app-warn: mat-palette($mat-red);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 @include angular-material-theme($app-theme);
-
 
 // fonts
 $font-family: 'Lato',
@@ -16,10 +17,6 @@ $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-heavy: 700;
 $font-height: 1.5;
-
-// colors
-$dark-grey: #333447;
-$dark-gray: #333447; // for the Americans
 
 // universal
 
@@ -32,7 +29,7 @@ body {
     left: 0;
     top: 0;
     font-size: 100%;
-    color: $dark-grey;
+    color: $dark-gray;
 }
 
 * {
