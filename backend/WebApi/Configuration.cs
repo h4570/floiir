@@ -11,6 +11,7 @@ namespace WebApi
 
     public class ConfigEnvironment
     {
+        public string Salt { get; set; }
         public Urls Urls { get; set; }
         public Connections Connections { get; set; }
     }
