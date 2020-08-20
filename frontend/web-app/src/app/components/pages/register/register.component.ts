@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InvitationKeyService } from 'src/app/services/invitation-key.service';
+import { InvitationKeyManager } from './invitation-key-manager';
 
 @Component({
   selector: 'app-register',
@@ -11,15 +12,17 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private invitationKeyService: InvitationKeyService
-  ) { }
+    private invKeyService: InvitationKeyService
+  ) {
+    this.invKeyManager = new InvitationKeyManager(this.invKeyService);
+  }
 
-  public async ngOnInit(): Promise<any> {
+  // Managers
+  public invKeyManager: InvitationKeyManager;
+
+  public async ngOnInit(): Promise<void> {
     const key = this.route.snapshot.paramMap.get('key');
-    // if (key.length === 10) { // TODO: extension method
-    const response = await this.invitationKeyService.get(key);
-    console.log(response);
-    // }
+    await this.invKeyManager.init(key);
   }
 
 }
