@@ -44,7 +44,7 @@ namespace WebApi
                         builder.WithOrigins(env.Urls.Main).AllowAnyMethod().AllowAnyHeader()
                         )
                     );
-
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<ConfigEnvironment>(Configuration.GetSection("configuration:" + envName));
             services.AddMvc().AddNewtonsoftJson();
@@ -53,6 +53,14 @@ namespace WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var dbInitializer = scope.ServiceProvider.GetService<IDbInitializer>();
+                dbInitializer.Initialize();
+                dbInitializer.SeedData();
+            }
+
             if (!Environment.IsProduction())
                 app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
