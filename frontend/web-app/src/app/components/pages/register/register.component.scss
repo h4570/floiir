@@ -1,3 +1,5 @@
+@import './../../../scss/variables.scss';
+
 .header-row {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -5,4 +7,22 @@
     .header {
         font-size: 24px;
     }
+}
+
+.terms {
+    height: 300px;
+
+    overflow: auto;
+
+    @media only screen and (min-width: $breakpoint-small) {
+        height: 567px;
+    }
+
+    @media only screen and (min-width: $breakpoint-large) {
+        height: 567px;
+    }
+}
+
+.form-field {
+    width: 100%;
 }

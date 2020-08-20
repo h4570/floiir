@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div class="small-spacer"></div>
+    <div class="spacer"></div>
 
     <div class="row">
 
@@ -26,22 +26,94 @@
 
     </div>
 
-    <div class="row" class="header-row" *ngIf="invKeyManager.isSuccess">
+    <div class="row header-row" *ngIf="invKeyManager.isSuccess">
         <div class="col-12" class="header">
             Register
         </div>
     </div>
 
     <div class="row" *ngIf="invKeyManager.isSuccess">
-        <div class="col-12">
-            Login
-        </div>
-        <div class="col-12">
-            Password
-        </div>
-        <div class="col-12">
-            Email
-        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="on">
+
+            <div class="col-4">
+
+                <div class="col-12">
+
+                    <mat-form-field class="form-field">
+                        <mat-label>First name</mat-label>
+                        <input matInput placeholder="First name" minlength="1" maxlength="35" required
+                            formControlName="firstName" autocomplete="given-name">
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-12">
+
+                    <mat-form-field class="form-field">
+                        <mat-label>Last name</mat-label>
+                        <input matInput placeholder="Last name" minlength="1" maxlength="35" formControlName="lastName"
+                            required autocomplete="family-name">
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-12">
+
+                    <mat-form-field class="form-field">
+                        <mat-label>Login</mat-label>
+                        <input matInput placeholder="Login" minlength="5" maxlength="20" formControlName="login"
+                            required autocomplete="username">
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-12">
+
+                    <mat-form-field class="form-field">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" placeholder="Password" minlength="6" maxlength="254" required
+                            formControlName="password" autocomplete="new-password">
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-12">
+
+                    <mat-form-field class="form-field">
+                        <mat-label>Confirm password</mat-label>
+                        <input matInput type="password" placeholder="Confirm password" minlength="6" maxlength="254"
+                            required formControlName="confirmPassword" autocomplete="new-password">
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-12">
+
+                    <mat-form-field class="form-field">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" placeholder="Email" minlength="6" maxlength="254" required
+                            formControlName="email" autocomplete="email">
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-12">
+
+                    <button mat-raised-button type="submit" color="primary"
+                        [disabled]="!registerForm.valid">Submit</button>
+
+                </div>
+
+            </div>
+
+            <div class="col-8">
+
+                <div class="terms mat-elevation-z3">{{terms}}</div>
+
+            </div>
+
+        </form>
     </div>
 
 </div>
