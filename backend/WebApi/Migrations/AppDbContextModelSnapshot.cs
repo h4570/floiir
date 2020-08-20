@@ -104,6 +104,16 @@ namespace WebApi.Migrations
                         .HasColumnType("character varying(35)")
                         .HasMaxLength(35);
 
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("character varying(64)")
+                        .HasMaxLength(64);
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
