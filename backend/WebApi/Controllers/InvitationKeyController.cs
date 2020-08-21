@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         [Route("{key}")]
         public async Task<ActionResult<InvitationKey>> Get(string key)
         {
-            if (key.IsValid())
+            if (key.IsInvKeyValid())
             {
                 var foundKeyObj = await _context.InvitationKeys
                     .AsQueryable()
