@@ -17,7 +17,7 @@ export class InvitationKeyHttpService {
         this.adapter = new InvitationKeyAdapter(userAdapter);
     }
 
-    public async get(key: string): Promise<InvitationKey> {
+    protected async get(key: string): Promise<InvitationKey> {
         const uri = `invitation-key/${encodeURIComponent(key)}`;
         return this.http
             .get<any>(`${environment.urls.api}` + uri)
