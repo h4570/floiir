@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { InvitationKeyService } from 'src/app/services/invitation-key.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserHttpService } from 'src/app/services/http/user.http.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { UserService } from 'src/app/services/user.service';
   ],
   providers: [
     InvitationKeyService,
-    UserService
+    UserHttpService
   ]
 })
 export class RegisterModule { }

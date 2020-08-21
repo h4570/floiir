@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { UserAdapter } from '../adapters/user.adapter';
-import { User } from '../models/user.model';
+import { environment } from './../../../environments/environment';
+import { UserAdapter } from './../../adapters/user.adapter';
+import { User } from './../../models/user.model';
 
 @Injectable()
-export class UserService {
+export class UserHttpService {
 
     private readonly adapter: UserAdapter;
 
@@ -15,7 +15,7 @@ export class UserService {
         this.adapter = new UserAdapter();
     }
 
-    public async create(invKey: string, user: User): Promise<User> {
+    public async register(invKey: string, user: User): Promise<User> {
         const uri = `user/${encodeURIComponent(invKey)}`;
         return this.http
             .post<any>(`${environment.urls.api}` + uri, user)
