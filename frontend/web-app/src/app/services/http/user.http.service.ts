@@ -15,7 +15,7 @@ export class UserHttpService {
         this.adapter = new UserAdapter();
     }
 
-    public async register(invKey: string, user: User): Promise<User> {
+    protected async post(invKey: string, user: User): Promise<User> {
         const uri = `user/${encodeURIComponent(invKey)}`;
         return this.http
             .post<any>(`${environment.urls.api}` + uri, user)
