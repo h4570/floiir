@@ -8,7 +8,7 @@
         /// </summary>
         public static bool IsInvKeyValid(this string invitationKey)
         {
-            return invitationKey.Length == 10;
+            return invitationKey.Length == Constants.INV_KEY_LENGTH;
         }
     }
 }
