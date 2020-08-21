@@ -25,8 +25,8 @@ export class InvitationKeyService extends InvitationKeyHttpService {
     private initialized: boolean;
 
     /** Checks invitation key and set's class vars. Could be used multiple times. */
-    public async init(key: string): Promise<void> {
-        return new Promise<void>(async (res) => {
+    public async init(key: string): Promise<InvitationKeyGetResponse> {
+        return new Promise<InvitationKeyGetResponse>(async (res) => {
             this.initialized = false;
             this.keyCheckResponse = undefined;
             this.invitationKey = undefined;
@@ -42,7 +42,7 @@ export class InvitationKeyService extends InvitationKeyHttpService {
                 } else this.keyCheckResponse = InvitationKeyGetResponse.UnknownError;
             }
             this.initialized = true;
-            res();
+            res(this.keyCheckResponse);
         });
     }
 

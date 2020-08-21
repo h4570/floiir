@@ -31,9 +31,9 @@ export class RegisterComponent implements OnInit {
   }, { validators: [this.passwordsValidator] });
 
   public async ngOnInit(): Promise<void> {
-    this.terms = await this.getAppTerms();
     const key = this.route.snapshot.paramMap.get('key');
-    await this.invKeyService.init(key);
+    this.getAppTerms().then(res => this.terms = res);
+    this.invKeyService.init(key);
   }
 
   public passwordsValidator(registerForm: FormGroup): ValidationErrors {
