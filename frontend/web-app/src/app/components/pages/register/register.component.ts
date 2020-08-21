@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { InvitationKeyService } from 'src/app/services/invitation-key.service';
 import { InvitationKeyManager } from './invitation-key-manager';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, ValidationErrors } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -34,12 +35,21 @@ export class RegisterComponent implements OnInit {
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
     email: new FormControl(''),
-  });
+  }, { validators: [this.passwordsValidator] });
 
   public async ngOnInit(): Promise<void> {
     this.terms = await this.getAppTerms();
     const key = this.route.snapshot.paramMap.get('key');
     await this.invKeyManager.init(key);
+  }
+
+  public passwordsValidator(registerForm: FormGroup): ValidationErrors {
+    const pass = registerForm.get('password');
+    const confirmPass = registerForm.get('confirmPassword');
+    if (pass.errors || confirmPass.errors) return null;
+    if (pass.value === confirmPass.value) confirmPass.setErrors(null);
+    else confirmPass.setErrors({ passwordsMismatch: true });
+    return null;
   }
 
   public async onSubmit(): Promise<void> {
