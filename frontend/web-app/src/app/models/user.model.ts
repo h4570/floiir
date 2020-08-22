@@ -1,6 +1,3 @@
-import { UserPassword } from './user-password.model';
-
-
 export interface User {
 
     /** Primary key */
@@ -9,11 +6,8 @@ export interface User {
     /** Max length: 20, non-nullable */
     login: string;
 
-    /** Non-nullable */
-    passwordId: number;
-
-    /** Non-nullable, never included */
-    userPassword: UserPassword;
+    /** Max length: 254, non-nullable */
+    password: string;
 
     /** Max length: 35, non-nullable */
     firstName: string;

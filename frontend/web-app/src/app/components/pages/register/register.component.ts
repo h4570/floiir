@@ -87,8 +87,7 @@ export class RegisterComponent implements OnInit {
     return {
       id: 0,
       login: this.registerForm.controls.login.value,
-      passwordId: 0,
-      userPassword: { id: 0, password: this.registerForm.controls.password.value },
+      password: this.registerForm.controls.password.value,
       firstName: this.registerForm.controls.firstName.value,
       lastName: this.registerForm.controls.lastName.value,
       email: this.registerForm.controls.email.value,

@@ -18,7 +18,7 @@ namespace WebApi.Extensions.User
         /// </summary>
         public static bool IsPasswordValid(this Models.Internal.User user)
         {
-            return user.UserPassword != null && user.UserPassword.Password != null && user.UserPassword.Password.Length >= 6 && user.UserPassword.Password.Length <= 254;
+            return user.Password != null && user.Password.Length >= 6 && user.Password.Length <= 254;
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace WebApi.Extensions.User
             if (user.FirstName != null) user.FirstName = user.FirstName.Trim();
             if (user.LastName != null) user.LastName = user.LastName.Trim();
             if (user.Login != null) user.Login = user.Login.Trim();
-            if (user.UserPassword != null && user.UserPassword.Password != null) user.UserPassword.Password = user.UserPassword.Password.Trim();
+            if (user.Password != null) user.Password = user.Password.Trim();
             if (user.Email != null) user.Email = user.Email.Trim();
         }
 

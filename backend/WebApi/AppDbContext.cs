@@ -18,7 +18,7 @@ namespace WebApi
         public DbSet<AppHistory> AppHistory { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<InvitationKey> InvitationKeys { get; set; }
-        public DbSet<UserPassword> UsersPasswords { get; set; }
+        //public DbSet<UserPassword> UsersPasswords { get; set; }
 
     }
 }

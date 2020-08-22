@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Models.Internal
 {
@@ -11,9 +11,9 @@ namespace WebApi.Models.Internal
         [StringLength(20)]
         public string Login { get; set; }
         [Required]
-        [ForeignKey("UserPassword")]
-        public int PasswordId { get; set; }
-        public UserPassword UserPassword { get; set; }
+        [JsonIgnore]
+        [StringLength(64)]
+        public string Password { get; set; }
         [Required]
         [StringLength(35)]
         public string FirstName { get; set; }

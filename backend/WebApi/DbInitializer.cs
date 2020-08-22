@@ -42,23 +42,13 @@ namespace WebApi
             using var serviceScope = _scopeFactory.CreateScope();
             using var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
 
-            if (!context.UsersPasswords.Any())
-            {
-                var adminPass = new UserPassword
-                {
-                    Id = 1,
-                    Password = "no-password"
-                };
-                context.UsersPasswords.Add(adminPass);
-            }
-
             if (!context.Users.Any())
             {
                 var appAdmin = new User
                 {
                     Id = 1,
                     Login = "app-admin",
-                    PasswordId = 1,
+                    Password = "no-password",
                     Email = "admin@flooir.com",
                     FirstName = "Floiir",
                     LastName = "Admin"

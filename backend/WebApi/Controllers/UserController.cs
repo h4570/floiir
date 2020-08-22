@@ -45,7 +45,7 @@ namespace WebApi.Controllers
                             if (!_userService.EmailExists(payload.Email))
                                 if (!_userService.LoginExists(payload.Login))
                                 {
-                                    payload.UserPassword.Password = Utilities.ComputeSha256Hash(payload.UserPassword.Password, _salt);
+                                    payload.Password = Utilities.ComputeSha256Hash(payload.Password, _salt);
                                     await _context.Users.AddAsync(payload);
                                     await _context.SaveChangesAsync();
                                     foundKeyObj.UsedByUserId = payload.Id;
