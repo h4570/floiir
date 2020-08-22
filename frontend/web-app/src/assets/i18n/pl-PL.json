@@ -1,5 +1,11 @@
 {
 	"navbar": {
 		"reportProblem": "Zgłoś problem"
+	},
+	"fDialog": {
+		"cancel": "Anuluj",
+		"iConfirm": "Potwierdzam",
+		"yes": "Tak",
+		"no": "Nie"
 	}
 }
