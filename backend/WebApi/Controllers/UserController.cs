@@ -3,13 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models.Internal;
 using System.Linq;
-using WebApi.Extensions.InvitationKey;
-using WebApi.Extensions.User;
 using WebApi.Services.Internal;
 using Microsoft.Extensions.Options;
+using WebApi.Extensions;
+using WebApi.Dtos.Internal;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebApi.Controllers
 {
+
+    [EnableCors]
     [Route("user")]
     [ApiController]
     public class UserController : ControllerBase
@@ -18,12 +21,14 @@ namespace WebApi.Controllers
         private readonly AppDbContext _context;
         private readonly UserService _userService;
         private readonly string _salt;
+        private readonly string _privateKey;
 
         public UserController(DbContextOptions<AppDbContext> options, IOptions<ConfigEnvironment> config)
         {
             _context = new AppDbContext(options);
             _userService = new UserService(_context);
             _salt = config.Value.Salt;
+            _privateKey = config.Value.PrivateKey;
         }
 
         /// <summary>
@@ -33,7 +38,7 @@ namespace WebApi.Controllers
         /// <returns>410 when key is invalid, 420 when key was not found</returns>
         [HttpPost]
         [Route("{key}")]
-        public async Task<ActionResult<User>> Post([FromBody] User payload, string key)
+        public async Task<ActionResult<User>> Post([FromBody] PayloadUserDto payload, string key)
         {
             payload.TrimProperties();
             if (key.IsInvKeyValid())
@@ -45,11 +50,15 @@ namespace WebApi.Controllers
                             if (!_userService.EmailExists(payload.Email))
                                 if (!_userService.LoginExists(payload.Login))
                                 {
-                                    payload.Password = Utilities.ComputeSha256Hash(payload.Password, _salt);
-                                    await _context.Users.AddAsync(payload);
+                                    var newUser = payload.ToUser();
+                                    newUser.Password = Utilities.ComputeSha256Hash(payload.Password, _salt);
+                                    payload.Password = null;
+                                    await _context.Users.AddAsync(newUser);
                                     await _context.SaveChangesAsync();
-                                    foundKeyObj.UsedByUserId = payload.Id;
+                                    foundKeyObj.UsedByUserId = newUser.Id;
                                     await _context.SaveChangesAsync();
+                                    var jwt = Utilities.GenerateJWTToken(_privateKey, newUser.Id);
+                                    HttpContext.Response.Headers.Add("x-auth-token", $"{jwt}");
                                     return Ok(payload);
                                 }
                                 else return StatusCode(460, "There is already user with this login.");

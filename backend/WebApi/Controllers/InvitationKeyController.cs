@@ -3,12 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models.Internal;
 using System.Linq;
-using WebApi.Extensions.InvitationKey;
+using WebApi.Extensions;
+using System.Collections.Generic;
+using WebApi.Misc;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebApi.Controllers
 {
-    [Route("invitation-key")]
+
+    [EnableCors]
     [ApiController]
+    [Route("invitation-key")]
     public class InvitationKeyController : ControllerBase
     {
 
@@ -17,6 +22,14 @@ namespace WebApi.Controllers
         public InvitationKeyController(DbContextOptions<AppDbContext> options)
         {
             _context = new AppDbContext(options);
+        }
+
+        [Authorize]
+        [HttpGet("/invitation-keys")]
+        public async Task<ActionResult<IEnumerable<InvitationKey>>> GetAll() // TODO REMOVE
+        {
+            User user = (User)HttpContext.Items["User"];
+            return Ok(await _context.InvitationKeys.AsQueryable().ToListAsync());
         }
 
         /// <summary>

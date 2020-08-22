@@ -9,8 +9,10 @@ using System.Linq;
 
 namespace WebApi.Controllers
 {
-    [Route("app-history")]
+
+    [EnableCors]
     [ApiController]
+    [Route("app-history")]
     public class AppHistoryController : ControllerBase
     {
 

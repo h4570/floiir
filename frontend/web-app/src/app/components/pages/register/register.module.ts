@@ -9,6 +9,7 @@ import { InvitationKeyService } from 'src/app/services/invitation-key.service';
 import { UserService } from 'src/app/services/user.service';
 import { SharedModule } from '../../shared/shared.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatProgressBarModule,
     MatButtonModule
   ],
   providers: [

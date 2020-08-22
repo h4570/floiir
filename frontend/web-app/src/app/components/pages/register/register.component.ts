@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user.model';
 import { FastDialogService } from 'src/app/services/fast-dialog.service';
 import { DialogType, DialogButtonType } from '../../shared/fast-dialog/fast-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +30,9 @@ export class RegisterComponent implements OnInit {
   // Data
   public terms: string;
 
+  // Controls
+  public loading: boolean;
+
   // Form
   public registerForm = new FormGroup({
     firstName: new FormControl(''),
@@ -38,6 +42,8 @@ export class RegisterComponent implements OnInit {
     confirmPassword: new FormControl(''),
     email: new FormControl(''),
   }, { validators: [this.passwordsValidator] });
+
+  // Funcs
 
   public async ngOnInit(): Promise<void> {
     const key = this.route.snapshot.paramMap.get('key');
@@ -57,6 +63,7 @@ export class RegisterComponent implements OnInit {
   public async onSubmit(): Promise<void> {
     this.trimForm();
     if (!this.registerForm.invalid) {
+      this.loading = true;
       const result = await this.userService.register(this.invKeyService.invitationKey.key, this.formUser);
       if (result === RegisterResponse.Success)
         this.router.navigateByUrl('/confirm-email');
@@ -76,6 +83,7 @@ export class RegisterComponent implements OnInit {
             type = DialogType.Error;
             break;
         }
+        this.loading = false;
         await this.fDialogService.open(type, DialogButtonType.Ok, title, [text]);
       }
     } else {

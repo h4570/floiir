@@ -4,8 +4,31 @@ using System.ComponentModel.DataAnnotations;
 namespace WebApi.Models.Internal
 {
 
-    public class User
+    public interface IUser
     {
+        public int Id { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+    }
+
+    public class User : IUser
+    {
+
+        public User() { }
+
+        public User(IUser iUser)
+        {
+            Id = iUser.Id;
+            Login = iUser.Login;
+            Password = iUser.Password;
+            FirstName = iUser.FirstName;
+            LastName = iUser.LastName;
+            Email = iUser.Email;
+        }
+
         public int Id { get; set; }
         [Required]
         [StringLength(20)]

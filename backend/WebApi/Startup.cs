@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
+using WebApi.Misc;
 
 namespace WebApi
 {
@@ -41,7 +42,7 @@ namespace WebApi
 
             services.AddCors(options =>
                         options.AddDefaultPolicy(builder =>
-                        builder.WithOrigins(env.Urls.Main).AllowAnyMethod().AllowAnyHeader()
+                        builder.WithOrigins(env.Urls.Main).AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("x-auth-token")
                         )
                     );
             services.AddScoped<IDbInitializer, DbInitializer>();
@@ -66,7 +67,7 @@ namespace WebApi
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
-            app.UseAuthorization();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 

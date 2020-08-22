@@ -101,10 +101,11 @@
 
                 </div>
 
-                <div class="col-12">
+                <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
-                    <button mat-raised-button type="submit" color="primary"
-                        [disabled]="!registerForm.valid">Submit</button>
+                <div class="col-12">
+                    <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.valid"
+                        [disabled]="loading">Submit</button>
 
                 </div>
 

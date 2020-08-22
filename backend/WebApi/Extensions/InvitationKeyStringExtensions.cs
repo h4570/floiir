@@ -1,6 +1,6 @@
-﻿namespace WebApi.Extensions.InvitationKey
+﻿namespace WebApi.Extensions
 {
-    public static class StringExtensions
+    public static class InvitationKeyStringExtensions
     {
 
         /// <summary>

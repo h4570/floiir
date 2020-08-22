@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UserHttpService } from './http/user.http.service';
 import { User } from '../models/user.model';
+import { AppService } from './app.service';
 
 export enum RegisterResponse {
     Success,
@@ -22,10 +23,12 @@ export class UserService extends UserHttpService {
         super(http);
     }
 
+    /** Register user in floiir. If register is successfull JWT token is saved in local storage */
     public async register(key: string, user: User): Promise<RegisterResponse> {
         return new Promise<RegisterResponse>(async (res) => {
             try {
-                await this.post(key, user);
+                const response = await this.post(key, user);
+                AppService.saveAuthToken(response.jwt);
                 res(RegisterResponse.Success);
             } catch (err) {
                 if (err instanceof HttpErrorResponse) {
