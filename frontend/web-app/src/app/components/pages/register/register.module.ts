@@ -6,7 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { InvitationKeyService } from 'src/app/services/invitation-key.service';
-import { UserHttpService } from 'src/app/services/http/user.http.service';
+import { UserService } from 'src/app/services/user.service';
+import { SharedModule } from '../../shared/shared.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,15 @@ import { UserHttpService } from 'src/app/services/http/user.http.service';
   imports: [
     CommonModule,
     MatFormFieldModule,
+    SharedModule,
+    MatSnackBarModule,
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule
   ],
   providers: [
     InvitationKeyService,
-    UserHttpService
+    UserService
   ]
 })
 export class RegisterModule { }

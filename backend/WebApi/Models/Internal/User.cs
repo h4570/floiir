@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Models.Internal
 {
 
     public class User
     {
-
         public int Id { get; set; }
         [Required]
         [StringLength(20)]
         public string Login { get; set; }
         [Required]
-        [StringLength(64)]
-        public string Password { get; set; }
+        [ForeignKey("UserPassword")]
+        public int PasswordId { get; set; }
+        public UserPassword UserPassword { get; set; }
         [Required]
         [StringLength(35)]
         public string FirstName { get; set; }
@@ -24,6 +25,5 @@ namespace WebApi.Models.Internal
         public string Email { get; set; }
 
         public string FullName { get { return $"{FirstName} {LastName}"; } }
-
     }
 }
