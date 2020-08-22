@@ -52,7 +52,7 @@ export class InvitationKeyService extends InvitationKeyHttpService {
     }
 
     public get isSuccess(): boolean {
-        return this.initialized && this.keyCheckResponse === InvitationKeyGetResponse.Success;
+        return this.initialized && this.keyCheckResponse === InvitationKeyGetResponse.Success && !this.wasKeyUsed;
     }
 
     public get wasKeyNotFound(): boolean {
