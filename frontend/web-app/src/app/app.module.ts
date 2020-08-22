@@ -8,6 +8,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppService } from './services/app.service';
 import { HomeModule } from './components/pages/home/home.module';
 import { RegisterModule } from './components/pages/register/register.module';
+import { ConfirmEmailModule } from './components/pages/confirm-email/confirm-email.module';
 import { SharedModule } from './components/shared/shared.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -20,6 +21,7 @@ import { environment } from 'src/environments/environment';
   imports: [
     HomeModule,
     RegisterModule,
+    ConfirmEmailModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
