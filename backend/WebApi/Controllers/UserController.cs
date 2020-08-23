@@ -61,13 +61,13 @@ namespace WebApi.Controllers
                                     HttpContext.Response.Headers.Add("x-auth-token", $"{jwt}");
                                     return Ok(payload);
                                 }
-                                else return StatusCode(460, "There is already user with this login.");
-                            else return StatusCode(450, "There is already user with this email.");
-                        else return StatusCode(440, "User properties validation failed.");
-                    else return StatusCode(430, "Given invitation key was used.");
-                else return StatusCode(420, "Given invitation key was not found.");
+                                else return StatusCode(465, "There is already user with this login.");
+                            else return StatusCode(464, "There is already user with this email.");
+                        else return StatusCode(463, "User properties validation failed.");
+                    else return StatusCode(462, "Given invitation key was used.");
+                else return StatusCode(461, "Given invitation key was not found.");
             }
-            else return StatusCode(410, "Given invitation key is invalid.");
+            else return StatusCode(460, "Given invitation key is invalid.");
         }
 
     }

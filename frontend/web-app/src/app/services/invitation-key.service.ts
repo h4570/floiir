@@ -36,8 +36,8 @@ export class InvitationKeyService extends InvitationKeyHttpService {
             } catch (err) {
                 this.error = err;
                 if (err instanceof HttpErrorResponse) {
-                    if (err.status === 410) this.keyCheckResponse = InvitationKeyGetResponse.InvalidKey;
-                    else if (err.status === 420) this.keyCheckResponse = InvitationKeyGetResponse.KeyNotFound;
+                    if (err.status === 460) this.keyCheckResponse = InvitationKeyGetResponse.InvalidKey;
+                    else if (err.status === 461) this.keyCheckResponse = InvitationKeyGetResponse.KeyNotFound;
                     else this.keyCheckResponse = InvitationKeyGetResponse.UnknownHttpError;
                 } else this.keyCheckResponse = InvitationKeyGetResponse.UnknownError;
             }

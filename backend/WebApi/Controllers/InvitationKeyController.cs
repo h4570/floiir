@@ -50,9 +50,9 @@ namespace WebApi.Controllers
                     .SingleOrDefaultAsync(c => c.Key == key);
                 if (foundKeyObj != null)
                     return foundKeyObj;
-                else return StatusCode(420, "Given invitation key was not found.");
+                else return StatusCode(461, "Given invitation key was not found.");
             }
-            else return StatusCode(410, "Given invitation key is invalid.");
+            else return StatusCode(460, "Given invitation key is invalid.");
         }
 
     }

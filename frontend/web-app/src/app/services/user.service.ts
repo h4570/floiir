@@ -32,12 +32,12 @@ export class UserService extends UserHttpService {
                 res(RegisterResponse.Success);
             } catch (err) {
                 if (err instanceof HttpErrorResponse) {
-                    if (err.status === 410) res(RegisterResponse.InvalidKey);
-                    else if (err.status === 420) res(RegisterResponse.KeyNotFound);
-                    else if (err.status === 430) res(RegisterResponse.KeyWasUsed);
-                    else if (err.status === 440) res(RegisterResponse.FormInvalid);
-                    else if (err.status === 450) res(RegisterResponse.EmailIsUsed);
-                    else if (err.status === 460) res(RegisterResponse.LoginIsUsed);
+                    if (err.status === 460) res(RegisterResponse.InvalidKey);
+                    else if (err.status === 461) res(RegisterResponse.KeyNotFound);
+                    else if (err.status === 462) res(RegisterResponse.KeyWasUsed);
+                    else if (err.status === 463) res(RegisterResponse.FormInvalid);
+                    else if (err.status === 464) res(RegisterResponse.EmailIsUsed);
+                    else if (err.status === 465) res(RegisterResponse.LoginIsUsed);
                     else res(RegisterResponse.UnknownHttpError);
                 } else res(RegisterResponse.UnknownError);
             }
