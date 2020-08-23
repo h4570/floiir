@@ -14,6 +14,8 @@ import { SharedModule } from './components/shared/shared.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
+import { AuthGuard } from './auth-guard';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -34,11 +36,18 @@ import { environment } from 'src/environments/environment';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('auth-token')
+      },
+    }),
   ],
   providers: [
     AppService,
-    AuthService
+    AuthService,
+    AuthGuard,
+    // JwtHelperService
   ],
   bootstrap: [
     AppComponent
