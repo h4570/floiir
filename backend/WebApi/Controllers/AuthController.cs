@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System;
-using System.Reflection;
 using System.Threading.Tasks;
 using WebApi.Dtos.Internal;
 using WebApi.Extensions;
@@ -11,43 +9,24 @@ using WebApi.Extensions;
 namespace WebApi.Controllers
 {
 
-    [AttributeUsage(AttributeTargets.Assembly, Inherited = false, AllowMultiple = false)]
-    public sealed class AppInfoAttribute : Attribute
-    {
-        public string Version { get; }
-        public string Build { get; }
-        public AppInfoAttribute(string version, string build)
-        {
-            Version = version;
-            Build = build;
-        }
-    }
-
     [EnableCors]
     [ApiController]
     [Route("[controller]")]
-    public class UtilitiesController : ControllerBase
+    public class AuthController : ControllerBase
     {
 
         private readonly AppDbContext _context;
         private readonly string _privateKey;
         private readonly string _salt;
 
-        public UtilitiesController(DbContextOptions<AppDbContext> options, IOptions<ConfigEnvironment> config)
+        public AuthController(DbContextOptions<AppDbContext> options, IOptions<ConfigEnvironment> config)
         {
             _context = new AppDbContext(options);
             _privateKey = config.Value.PrivateKey;
             _salt = config.Value.Salt;
         }
 
-        [HttpGet("/app-info")]
-        public ActionResult<ActionResult<object>> GetAppInfo()
-        {
-            var appInfo = Assembly.GetEntryAssembly().GetCustomAttribute<AppInfoAttribute>();
-            return Ok(new { version = appInfo.Version, build = appInfo.Build });
-        }
-
-        [HttpPost("/auth")]
+        [HttpPost]
         public async Task<ActionResult<AuthenticateResponseDto>> Authorize([FromBody] AuthenticateRequestDto payload)
         {
             payload.TrimProperties();
