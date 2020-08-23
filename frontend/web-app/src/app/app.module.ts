@@ -6,6 +6,7 @@ import { NavbarModule } from './components/navbar/navbar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppService } from './services/app.service';
+import { AuthService } from './services/auth.service';
 import { HomeModule } from './components/pages/home/home.module';
 import { RegisterModule } from './components/pages/register/register.module';
 import { ConfirmEmailModule } from './components/pages/confirm-email/confirm-email.module';
@@ -36,7 +37,8 @@ import { environment } from 'src/environments/environment';
     })
   ],
   providers: [
-    AppService
+    AppService,
+    AuthService
   ],
   bootstrap: [
     AppComponent

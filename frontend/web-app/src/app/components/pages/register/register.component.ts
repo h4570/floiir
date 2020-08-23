@@ -9,6 +9,7 @@ import { FastDialogService } from 'src/app/services/fast-dialog.service';
 import { DialogType, DialogButtonType } from '../../shared/fast-dialog/fast-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppService } from 'src/app/services/app.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,7 @@ export class RegisterComponent implements OnInit {
     private readonly router: Router,
     private readonly http: HttpClient,
     private readonly userService: UserService,
+    private readonly authService: AuthService,
     private readonly snackBar: MatSnackBar,
     private readonly fDialogService: FastDialogService,
     public invKeyService: InvitationKeyCheckerService
@@ -64,7 +66,12 @@ export class RegisterComponent implements OnInit {
     this.trimForm();
     if (!this.registerForm.invalid) {
       this.loading = true;
-      const result = await this.userService.register(this.invKeyService.invitationKey.key, this.formUser);
+      const result =
+        await this.userService.register(
+          this.invKeyService.invitationKey.key,
+          this.formUser,
+          this.authService.saveToken
+        );
       if (result === RegisterResponse.Success)
         this.router.navigateByUrl('/confirm-email');
       else {
