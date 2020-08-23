@@ -12,7 +12,7 @@ enum InvitationKeyGetResponse {
 }
 
 @Injectable()
-export class InvitationKeyService extends InvitationKeyHttpService {
+export class InvitationKeyCheckerService extends InvitationKeyHttpService {
 
     constructor(http: HttpClient) {
         super(http);

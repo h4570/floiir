@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { InvitationKeyService } from 'src/app/services/invitation-key.service';
+import { InvitationKeyCheckerService } from 'src/app/services/invitation-key-checker.service';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, ValidationErrors } from '@angular/forms';
 import { UserService, RegisterResponse } from 'src/app/services/user.service';
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     private readonly userService: UserService,
     private readonly snackBar: MatSnackBar,
     private readonly fDialogService: FastDialogService,
-    public invKeyService: InvitationKeyService
+    public invKeyService: InvitationKeyCheckerService
   ) { }
 
   // Data
