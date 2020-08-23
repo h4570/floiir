@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UserHttpService } from './http/user.http.service';
 import { User } from '../models/user.model';
-import { AppService } from './app.service';
 
 export enum RegisterResponse {
     Success,
