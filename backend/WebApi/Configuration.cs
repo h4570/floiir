@@ -11,6 +11,7 @@ namespace WebApi
 
     public class ConfigEnvironment
     {
+        public string ReCaptchaSecret { get; set; }
         public string Salt { get; set; }
         public string PrivateKey { get; set; }
         public Urls Urls { get; set; }
