@@ -15,10 +15,11 @@ export class UserHttpService {
         this.adapter = new UserAdapter();
     }
 
-    protected async post(invKey: string, user: User): Promise<{ user: User, jwt: string }> {
-        const uri = `user/${encodeURIComponent(invKey)}`;
+    protected async post(invitationKey: string, reCaptchaToken: string, user: User): Promise<{ user: User, jwt: string }> {
+        const uri = `user/`;
+        const payload = { user, invitationKey, reCaptchaToken };
         return this.http
-            .post<any>(`${environment.urls.api}` + uri, user, { observe: 'response' })
+            .post<any>(`${environment.urls.api}` + uri, payload, { observe: 'response' })
             .toPromise()
             .then(resp => {
                 return { user: this.adapter.adapt(resp.body), jwt: resp.headers.get('x-auth-token') };

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvitationKeyCheckerService } from 'src/app/services/invitation-key-checker.service';
 import { HttpClient } from '@angular/common/http';
@@ -8,8 +8,9 @@ import { User } from 'src/app/models/user.model';
 import { FastDialogService } from 'src/app/services/fast-dialog.service';
 import { DialogType, DialogButtonType } from '../../shared/fast-dialog/fast-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
+import { RecaptchaComponent } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-register',
@@ -29,8 +30,13 @@ export class RegisterComponent implements OnInit {
     public invKeyService: InvitationKeyCheckerService
   ) { }
 
+  @ViewChild('reCaptchaRef')
+  private reCaptchaComponent: RecaptchaComponent;
+
   // Data
   public terms: string;
+  public reCaptchaKey: string = environment.reCaptchaKey;
+  private reCaptchaToken: string;
 
   // Controls
   public loading: boolean;
@@ -62,6 +68,8 @@ export class RegisterComponent implements OnInit {
     return null;
   }
 
+  public onReCaptchaResolve(token: string): void { this.reCaptchaToken = token; }
+
   public async onSubmit(): Promise<void> {
     this.trimForm();
     if (!this.registerForm.invalid) {
@@ -69,12 +77,14 @@ export class RegisterComponent implements OnInit {
       const result =
         await this.userService.register(
           this.invKeyService.invitationKey.key,
+          this.reCaptchaToken,
           this.formUser,
           this.authService.saveToken
         );
       if (result === RegisterResponse.Success)
         this.router.navigateByUrl('/confirm-email');
       else {
+        this.reCaptchaComponent.reset();
         const title = 'Register error';
         let text: string;
         let type = DialogType.Alert;

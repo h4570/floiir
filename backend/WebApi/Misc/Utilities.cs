@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -18,6 +20,17 @@ namespace WebApi
             for (int i = 0; i < bytes.Length; i++)
                 builder.Append(bytes[i].ToString("x2"));
             return builder.ToString();
+        }
+
+        public static string GetHostFromRequestHeaders(IHeaderDictionary headers)
+        {
+            headers.TryGetValue("Origin", out StringValues originValues);
+            string dirty;
+            if (originValues.Count > 0)
+                dirty = originValues[0];
+            else throw new Exception("Origin was not found in request headers");
+            var clean = new Uri(dirty).Host;
+            return clean.ToString();
         }
 
         public static string GenerateJWTToken(string privateKey, int userId)

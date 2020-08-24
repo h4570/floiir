@@ -36,7 +36,7 @@
 
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="on">
 
-            <div class="col-4">
+            <div class="col-5">
 
                 <div class="col-12">
 
@@ -101,19 +101,30 @@
 
                 </div>
 
-                <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+            </div>
 
-                <div class="col-12">
-                    <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.valid"
-                        [disabled]="loading">Submit</button>
+            <div class="col-7">
+
+                <div class="terms mat-elevation-z3">{{terms}}</div>
+
+                <div class="row captcha-submit-container">
+
+                    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+                    <div class="col-8">
+                        <re-captcha #reCaptchaRef (resolved)="onReCaptchaResolve($event)" [siteKey]="reCaptchaKey">
+                        </re-captcha>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="submit-container">
+                            <button mat-raised-button type="submit" class="submit-btn" color="primary"
+                                [disabled]="!registerForm.valid" [disabled]="loading">Submit</button>
+                        </div>
+                    </div>
 
                 </div>
 
-            </div>
-
-            <div class="col-8">
-
-                <div class="terms mat-elevation-z3">{{terms}}</div>
 
             </div>
 

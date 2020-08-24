@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SharedModule } from '../../shared/shared.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -23,11 +24,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatInputModule,
     ReactiveFormsModule,
     MatProgressBarModule,
-    MatButtonModule
+    MatButtonModule,
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
   providers: [
     InvitationKeyCheckerService,
-    UserService
+    UserService,
   ]
 })
 export class RegisterModule { }

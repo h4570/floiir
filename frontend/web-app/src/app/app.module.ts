@@ -15,7 +15,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
 import { AuthGuard } from './auth-guard';
-import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -41,13 +41,12 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
       config: {
         tokenGetter: () => localStorage.getItem('auth-token')
       },
-    }),
+    })
   ],
   providers: [
     AppService,
     AuthService,
-    AuthGuard,
-    // JwtHelperService
+    AuthGuard
   ],
   bootstrap: [
     AppComponent
