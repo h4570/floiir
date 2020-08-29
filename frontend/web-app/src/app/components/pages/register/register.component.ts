@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { RecaptchaComponent } from 'ng-recaptcha';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -27,6 +28,7 @@ export class RegisterComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly snackBar: MatSnackBar,
     private readonly fDialogService: FastDialogService,
+    private readonly translate: TranslateService,
     public invKeyService: InvitationKeyCheckerService
   ) { }
 
@@ -72,7 +74,7 @@ export class RegisterComponent implements OnInit {
 
   public async onSubmit(): Promise<void> {
     this.trimForm();
-    if (!this.registerForm.invalid) {
+    if (!this.registerForm.invalid && this.reCaptchaToken) {
       this.loading = true;
       const result =
         await this.userService.register(
@@ -84,19 +86,20 @@ export class RegisterComponent implements OnInit {
       if (result === RegisterResponse.Success)
         this.router.navigateByUrl('/confirm-email');
       else {
+        this.reCaptchaToken = null;
         this.reCaptchaComponent.reset();
-        const title = 'Register error';
+        const title = this.translate.instant('register.registerError');
         let text: string;
         let type = DialogType.Alert;
         switch (result) {
           case RegisterResponse.EmailIsUsed:
-            text = 'This email was already used in Floiir. Please use another email address.';
+            text = this.translate.instant('register.emailUsed') as string;
             break;
           case RegisterResponse.LoginIsUsed:
-            text = 'This login was already used in Floiir. Please use another login.';
+            text = this.translate.instant('register.loginUsed') as string;
             break;
           default:
-            text = 'We\'ve encountered critical error. Please contact Floiir administrator.';
+            text = this.translate.instant('register.criticalError') as string;
             type = DialogType.Error;
             break;
         }
@@ -104,7 +107,7 @@ export class RegisterComponent implements OnInit {
         await this.fDialogService.open(type, DialogButtonType.Ok, title, [text]);
       }
     } else {
-      this.snackBar.open('Please check all fields.', 'OK', { duration: 5000 });
+      this.snackBar.open(this.translate.instant('register.checkAllFields') as string, 'OK', { duration: 5000 });
     }
   }
 

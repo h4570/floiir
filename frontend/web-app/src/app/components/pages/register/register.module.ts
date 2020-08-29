@@ -11,6 +11,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
     MatProgressBarModule,
     MatButtonModule,
     RecaptchaModule,
+    TranslateModule,
     RecaptchaFormsModule
   ],
   providers: [
