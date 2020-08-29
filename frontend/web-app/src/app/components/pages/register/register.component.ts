@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { RecaptchaComponent } from 'ng-recaptcha';
 import { TranslateService } from '@ngx-translate/core';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly http: HttpClient,
+    private readonly appService: AppService,
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly snackBar: MatSnackBar,
@@ -57,10 +58,11 @@ export class RegisterComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     const key = this.route.snapshot.paramMap.get('key');
-    this.getAppTerms().then(res => this.terms = res);
+    this.appService.appTerms.then(res => this.terms = res);
     this.invKeyService.init(key);
   }
 
+  /** Set's error on confirmPassworrd control, when password and confirmPassword do not match */
   public passwordsValidator(registerForm: FormGroup): ValidationErrors {
     const pass = registerForm.get('password');
     const confirmPass = registerForm.get('confirmPassword');
@@ -70,8 +72,15 @@ export class RegisterComponent implements OnInit {
     return null;
   }
 
+  /** Triggered when user will resolve reCaptcha challenge */
   public onReCaptchaResolve(token: string): void { this.reCaptchaToken = token; }
 
+  /** Triggered when user will click on Submit button.
+   * Properties trimming
+   * Form & reCaptcha validation
+   * On success: redirects to confirm-email and save JWT token in localStorage
+   * On fail: shows fast dialog with error information
+   */
   public async onSubmit(): Promise<void> {
     this.trimForm();
     if (!this.registerForm.invalid && this.reCaptchaToken) {
@@ -111,6 +120,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  /** Helper method to adapt form to user model */
   private get formUser(): User {
     return {
       id: 0,
@@ -123,19 +133,13 @@ export class RegisterComponent implements OnInit {
     };
   }
 
+  /** Helper method for trimming form properties */
   private trimForm(): void {
     this.registerForm.controls.login.setValue(this.registerForm.controls.login.value.trim());
     this.registerForm.controls.password.setValue(this.registerForm.controls.password.value.trim());
     this.registerForm.controls.firstName.setValue(this.registerForm.controls.firstName.value.trim());
     this.registerForm.controls.lastName.setValue(this.registerForm.controls.lastName.value.trim());
     this.registerForm.controls.email.setValue(this.registerForm.controls.email.value.trim());
-  }
-
-  private async getAppTerms(): Promise<string> {
-    return this.http
-      .get<string>('assets/terms.txt', { responseType: 'text' as 'json' })
-      .toPromise()
-      .then(result => result as any as string);
   }
 
 }

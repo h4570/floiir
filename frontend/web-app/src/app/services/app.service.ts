@@ -20,4 +20,11 @@ export class AppService {
         this.build = appInfo.build;
     }
 
+    public get appTerms(): Promise<string> {
+        return this.http
+            .get<string>('assets/terms.txt', { responseType: 'text' as 'json' })
+            .toPromise()
+            .then(result => result as any as string);
+    }
+
 }
