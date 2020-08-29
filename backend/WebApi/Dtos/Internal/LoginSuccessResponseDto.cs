@@ -3,10 +3,10 @@ using WebApi.Models.Internal;
 
 namespace WebApi.Dtos.Internal
 {
-    public class AuthenticateResponseDto
+    public class LoginSuccessResponseDto
     {
 
-        public AuthenticateResponseDto(User user, string jwtToken)
+        public LoginSuccessResponseDto(User user, string jwtToken)
         {
             Id = user.Id;
             FirstName = user.FirstName;

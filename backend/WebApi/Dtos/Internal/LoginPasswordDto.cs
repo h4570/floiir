@@ -2,7 +2,8 @@
 
 namespace WebApi.Dtos.Internal
 {
-    public class AuthenticateRequestDto
+
+    public class LoginPasswordDto
     {
         [Required]
         public string Login { get; set; }
@@ -10,4 +11,5 @@ namespace WebApi.Dtos.Internal
         [Required]
         public string Password { get; set; }
     }
+
 }

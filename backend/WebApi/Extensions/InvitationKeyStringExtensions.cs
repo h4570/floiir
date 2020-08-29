@@ -4,7 +4,7 @@
     {
 
         /// <summary>
-        /// Checks if invitation key length is valid
+        /// Checks if invitation key's length equals to Constants.INV_KEY_LENGTH
         /// </summary>
         public static bool IsInvKeyValid(this string invitationKey)
         {

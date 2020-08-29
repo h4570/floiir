@@ -10,6 +10,8 @@ using WebApi.Dtos.Internal;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using WebApi.Services.External;
+using WebApi.Misc.Http;
+using WebApi.Misc.Auth;
 
 namespace WebApi.Controllers
 {
@@ -38,14 +40,24 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Used for checking invitation key in frontend (register component)
+        /// Used for user registration.
+        /// On successfull registration, JWT auth token is added to response headers as 'x-auth-token'
         /// </summary>
-        /// <param name="key">Valid key should be created in database and have x chars length</param>
-        /// <returns>410 when key is invalid, 420 when key was not found</returns>
+        /// <param name="payload">Dto which have new user model, reCatpcha token and invitation key</param>
+        /// <returns>
+        /// 460 - when invitation key is invalid (Constants.INV_KEY_LENGTH), 
+        /// 461 - when invitation key was not found in database, 
+        /// 462 - when invitation key was used by another user, 
+        /// 463 - when new user object properties are invalid, 
+        /// 464 - when given email from new user object is already used, 
+        /// 465 - when given login from new user object is already used, 
+        /// 499 - when reCaptcha validation failed, 
+        /// 200 - when user was created. JWT token response header is added here.
+        /// </returns>
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromBody] UserRegisterDto payload)
         {
-            var host = Utilities.GetHostFromRequestHeaders(Request.Headers);
+            var host = HttpUtilities.GetHostFromRequestHeaders(Request.Headers);
             var reCaptchaSucceed = await _reCaptchaService.IsReCaptchaSucceed(payload.ReCaptchaToken, _reCaptchaSecret, host);
             if (reCaptchaSucceed)
             {
@@ -61,13 +73,13 @@ namespace WebApi.Controllers
                                     if (!_userService.LoginExists(payloadUser.Login))
                                     {
                                         var newUser = payloadUser.ToUser();
-                                        newUser.Password = Utilities.ComputeSha256Hash(payloadUser.Password, _salt);
+                                        newUser.Password = AuthUtilities.ComputeSha256Hash(payloadUser.Password, _salt);
                                         payloadUser.Password = null;
                                         await _context.Users.AddAsync(newUser);
                                         await _context.SaveChangesAsync();
                                         foundKeyObj.UsedByUserId = newUser.Id;
                                         await _context.SaveChangesAsync();
-                                        var jwt = Utilities.GenerateJWTToken(_privateKey, newUser.Id);
+                                        var jwt = AuthUtilities.GenerateJWTToken(_privateKey, newUser.Id);
                                         HttpContext.Response.Headers.Add("x-auth-token", $"{jwt}");
                                         return Ok(payloadUser);
                                     }

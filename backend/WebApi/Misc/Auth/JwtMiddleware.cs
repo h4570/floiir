@@ -3,17 +3,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApi.Misc
+namespace WebApi.Misc.Auth
 {
 
+    /// <summary>
+    /// Provides JWT token authentication.
+    /// </summary>
     public class JwtMiddleware
     {
+
         private readonly RequestDelegate _next;
         private readonly ConfigEnvironment _config;
 
@@ -23,6 +26,9 @@ namespace WebApi.Misc
             _config = config.Value;
         }
 
+        /// <summary>
+        /// If token exists in Authorization header, attaches user object to request.
+        /// </summary>
         public async Task Invoke(HttpContext context, DbContextOptions<AppDbContext> options)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
@@ -34,6 +40,11 @@ namespace WebApi.Misc
             await _next(context);
         }
 
+        /// <summary>
+        /// Attaches user object to request.
+        /// User id is grabbed from JWT token
+        /// </summary>
+        /// <param name="token">JWT token</param>
         private void AttachUserToContext(HttpContext context, AppDbContext dbContext, string token)
         {
             try

@@ -5,8 +5,8 @@ using WebApi.Models.Internal;
 using System.Linq;
 using WebApi.Extensions;
 using System.Collections.Generic;
-using WebApi.Misc;
 using Microsoft.AspNetCore.Cors;
+using WebApi.Misc.Auth;
 
 namespace WebApi.Controllers
 {
@@ -33,10 +33,13 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Used for checking invitation key in frontend (register component)
+        /// Used for checking invitation key before registration
         /// </summary>
-        /// <param name="key">Valid key should be created in database and have x chars length</param>
-        /// <returns>410 when key is invalid, 420 when key was not found</returns>
+        /// <param name="key">Invitation key</param>
+        /// <returns>
+        /// 460 - when key is invalid (Constants.INV_KEY_LENGTH), 
+        /// 461 - when key was not found in database
+        /// </returns>
         [HttpGet]
         [Route("{key}")]
         public async Task<ActionResult<InvitationKey>> Get(string key)

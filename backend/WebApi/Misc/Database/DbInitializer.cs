@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using WebApi.Models.Internal;
 
-namespace WebApi
+namespace WebApi.Misc.Database
 {
 
     public interface IDbInitializer
@@ -16,7 +16,7 @@ namespace WebApi
         void Initialize();
 
         /// <summary>
-        /// Adds some default values to the Db
+        /// Adds some first invitation key and app admin user to the database.
         /// </summary>
         void SeedData();
     }

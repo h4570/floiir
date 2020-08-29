@@ -4,24 +4,17 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
-namespace WebApi
+namespace WebApi.Misc.Http
 {
-    public static class Utilities
+    public static class HttpUtilities
     {
 
-        public static string ComputeSha256Hash(string value, string salt = "")
-        {
-            using SHA256 sha256Hash = SHA256.Create();
-            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes($"{value}{salt}"));
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < bytes.Length; i++)
-                builder.Append(bytes[i].ToString("x2"));
-            return builder.ToString();
-        }
-
+        /// <summary>
+        /// Returns host from request headers.
+        /// Examples: "localhost", "google.com"
+        /// </summary>
         public static string GetHostFromRequestHeaders(IHeaderDictionary headers)
         {
             headers.TryGetValue("Origin", out StringValues originValues);
@@ -33,6 +26,12 @@ namespace WebApi
             return clean.ToString();
         }
 
+        /// <summary>
+        /// Compute's JWT token
+        /// </summary>
+        /// <param name="privateKey"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public static string GenerateJWTToken(string privateKey, int userId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using WebApi.Dtos.Internal;
 using WebApi.Extensions;
+using WebApi.Misc.Auth;
 
 namespace WebApi.Controllers
 {
@@ -26,16 +27,21 @@ namespace WebApi.Controllers
             _salt = config.Value.Salt;
         }
 
+        /// <summary>
+        /// TODO. Prototype of login endpoint
+        /// </summary>
+        /// <param name="payload"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<AuthenticateResponseDto>> Authorize([FromBody] AuthenticateRequestDto payload)
+        public async Task<ActionResult<LoginSuccessResponseDto>> Authorize([FromBody] LoginPasswordDto payload)
         {
             payload.TrimProperties();
-            var hash = Utilities.ComputeSha256Hash(payload.Password, _salt);
+            var hash = AuthUtilities.ComputeSha256Hash(payload.Password, _salt);
             var user = await _context.Users.SingleOrDefaultAsync(c => c.Login.Equals(payload.Login) && c.Password.Equals(hash));
             if (user != null)
             {
-                var jwt = Utilities.GenerateJWTToken(_privateKey, user.Id);
-                var res = new AuthenticateResponseDto(user, jwt);
+                var jwt = AuthUtilities.GenerateJWTToken(_privateKey, user.Id);
+                var res = new LoginSuccessResponseDto(user, jwt);
                 return Ok(res);
             }
             else return StatusCode(410, "Login failed.");
