@@ -46,11 +46,13 @@ export class InvitationKeyCheckerService extends InvitationKeyHttpService {
         });
     }
 
+    /** True when key was checked and backend api returned 500 status code or there was another error  */
     public get isError(): boolean {
         return this.initialized && (this.keyCheckResponse === InvitationKeyGetResponse.UnknownError ||
             this.keyCheckResponse === InvitationKeyGetResponse.UnknownHttpError);
     }
 
+    /** True when key was checked, exist is valid and was not used */
     public get isSuccess(): boolean {
         return this.initialized && this.keyCheckResponse === InvitationKeyGetResponse.Success && !this.wasKeyUsed;
     }

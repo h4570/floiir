@@ -24,7 +24,7 @@ export class UserService extends UserHttpService {
         super(http);
     }
 
-    /** Register user in floiir. If register is successfull JWT token is saved in local storage */
+    /** Register user in floiir. If call is successfull JWT token is saved in local storage */
     public async register(key: string, recaptcha: string, user: User, saveToken: SaveAuthTokenDelegate): Promise<RegisterResponse> {
         return new Promise<RegisterResponse>(async (res) => {
             try {

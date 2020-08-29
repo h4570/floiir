@@ -8,16 +8,19 @@ export class AuthService {
         private readonly jwtHelper: JwtHelperService
     ) { }
 
+    /** Set's JWT auth token in localStorage */
     public saveToken(token: string): void {
         localStorage.setItem('auth-token', token);
     }
 
+    /** Check's if auth token exists and if is not expired */
     public get isAuthenticated(): boolean {
         if (this.token)
             return !this.jwtHelper.isTokenExpired(this.token);
         else return false;
     }
 
+    /** Returns auth token from localStorage */
     private get token(): string | null {
         return localStorage.getItem('auth-token');
     }

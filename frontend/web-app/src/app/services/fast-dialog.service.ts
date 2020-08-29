@@ -9,6 +9,10 @@ export class FastDialogService {
         private readonly dialog: MatDialog,
     ) { }
 
+    /** Fast API for creating and opening user dialog.
+     * Return's 1 when: Ok, Yes, Confirm
+     * Return's 0 when: No, Close
+     */
     public open(type: DialogType, btnType: DialogButtonType, title: string, texts: string[]): Promise<0 | 1> {
         return new Promise<0 | 1>((res, rej) => {
             const dialogRef = this.dialog.open(FastDialogComponent, {
