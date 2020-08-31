@@ -26,29 +26,30 @@ export class MapManager {
         tiles.addTo(this.map);
     }
 
-    public addMarker(): void {
+    public addMarker(x: number, y: number): void { // TODO add type of marker
         L.marker([39.8282, -98.5795]).addTo(this.map);
     }
 
-    public addCircle(): void {
-        const circle = L.circleMarker([75, 25], {
-            radius: 100,
-            color: 'yellow'
-
-        });
-        circle.bindPopup('<div> <h3>circle</h3> </div>');
-        circle.bindTooltip('<div><h4>Click me</h4></div>');
+    public addCircle(x: number, y: number, options: L.CircleMarkerOptions, tooltip?: string, popout?: string): void {
+        const circle = L.circleMarker([x, y], options);
+        if (tooltip !== undefined) {
+            circle.bindTooltip(`<div><h4>${tooltip}</h4></div>`);
+        }
+        if (popout !== undefined) {
+            circle.bindPopup(`<div> <h3>${popout}</h3> </div>`);
+        }
         circle.addTo(this.map);
     }
 
-    public addPolygon(): void {
-        const square = L.polygon([[1, 1], [3, 1], [3, 3], [1, 3]], {
-            color: 'red',
-            fillColor: 'green'
-        });
-        square.bindPopup('<div> <h3>square</h3> </div>');
-        square.bindTooltip('<div><h4>Click me</h4></div>');
-        square.addTo(this.map);
+    public addPolygon(parameters: L.LatLngExpression[], options?: L.PolylineOptions, tooltip?: string, popout?: string): void {
+        const polygon = L.polygon(parameters, options);
+        if (tooltip !== undefined) {
+            polygon.bindTooltip(`<div><h4>${tooltip}</h4></div>`);
+        }
+        if (popout !== undefined) {
+            polygon.bindPopup(`<div> <h3>${popout}</h3> </div>`);
+        }
+        polygon.addTo(this.map);
     }
 
 

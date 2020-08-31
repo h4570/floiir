@@ -40,9 +40,12 @@ export class MapComponent implements AfterViewInit {
     this.mapManager.initMap();
 
     // test stuff
-    this.mapManager.addMarker();
-    this.mapManager.addCircle();
-    this.mapManager.addPolygon();
+    this.mapManager.addMarker(8, 4);
+    this.mapManager.addCircle(1, 2, {
+      radius: 100,
+      color: 'blue'
+    }, 'circle');
+    this.mapManager.addPolygon([[1, 1], [3, 1], [3, 3], [1, 3]]);
     this.mapManager.addEvent();
   }
 

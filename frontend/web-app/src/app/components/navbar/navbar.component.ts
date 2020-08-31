@@ -15,15 +15,15 @@ import { trigger, transition, style, animate } from '@angular/animations';
           style({ opacity: 0 }),
           animate('0.4s ease-out',
             style({ opacity: 1, height: 90 })),
-          animate('0.2s ease-out',
-            style({ height: 80 }))
+          animate('0.4s ease-in',
+            style({ height: 40 }))
         ]
       ),
       transition(
         ':leave',
         [
           style({ opacity: 1 }),
-          animate('0.2s ease-out',
+          animate('0.4s ease-out',
             style({ height: 80 })),
           animate('0.4s ease-in',
             style({ opacity: 0, height: 0 }))
