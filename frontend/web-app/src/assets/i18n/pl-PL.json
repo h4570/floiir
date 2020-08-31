@@ -1,5 +1,30 @@
 {
+	"fDialog": {
+		"cancel": "Anuluj",
+		"iConfirm": "Potwierdzam",
+		"no": "Nie",
+		"yes": "Tak"
+	},
 	"navbar": {
 		"reportProblem": "Zgłoś problem"
+	},
+	"register": {
+		"checkAllFields": "Proszę sprawdź wszystkie pola",
+		"confirmPassword": "Potwierdź hasło",
+		"criticalError": "Napotkaliśmy błąd krytyczny. Skontaktuj się z administratorem Floiir",
+		"emailUsed": "Ten email został już użyty w Floiir. Proszę użyj inny adres email.",
+		"firstName": "Imię",
+		"invKeyError": "Ups! Napotkaliśmy błąd w podanym kluczu zapraszającym. Proszę, skontaktuj się z administratorem.",
+		"invKeyInvalid": "Ups! Podany klucz zapraszający jest nieprawidłowy. Proszę, skontaktuj się z osobą, która Cię zaprosiła.",
+		"invKeyNotFound": "Ups! Floiir nie znalazło podanego klucza zapraszającego. Proszę, skontaktuj się z administratorem.",
+		"invKeySuccess": "Witamy w Floiir! Zaproszenie od: {{ fullName }}",
+		"invKeyUsed": "Ups! Wygląda na to, że podany klucz został już użyty. Proszę, skontaktuj się z osobą, która Cię zaprosiła.",
+		"lastName": "Nazwisko",
+		"loginUsed": "Ten login został już użyty w Floiir. Proszę wybierz inny login.",
+		"password": "Hasło",
+		"passwordsDoNotMatch": "Hasła nie pasują do siebie",
+		"registerHeader": "Rejestracja",
+		"registerError": "Błąd rejestracji",
+		"submit": "Wyślij"
 	}
 }

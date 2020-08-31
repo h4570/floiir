@@ -12,12 +12,21 @@ export class AppService {
     public version: string;
     public build: string;
 
+    /** Update's application version and build in AppService class */
     public async setAppInfo(): Promise<void> {
         const appInfo = await this.http
             .get<{ version: string, build: string }>(environment.urls.api + 'app-info')
             .toPromise();
         this.version = appInfo.version;
         this.build = appInfo.build;
+    }
+
+    /** Returns text with application terms */
+    public get appTerms(): Promise<string> {
+        return this.http
+            .get<string>('assets/terms.txt', { responseType: 'text' as 'json' })
+            .toPromise()
+            .then(result => result as any as string);
     }
 
 }

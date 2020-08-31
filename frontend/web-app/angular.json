@@ -34,6 +34,9 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/app/scss/notification.scss",
+              "src/app/scss/simple-grid.scss"
+              "src/styles.scss",
               "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []

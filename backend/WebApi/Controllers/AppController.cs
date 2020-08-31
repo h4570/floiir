@@ -18,9 +18,10 @@ namespace WebApi.Controllers
         }
     }
 
-    [Route("[controller]")]
+    [EnableCors]
     [ApiController]
-    public class UtilityController : ControllerBase
+    [Route("[controller]")]
+    public class AppController : ControllerBase
     {
 
         [HttpGet("/app-info")]
@@ -31,4 +32,5 @@ namespace WebApi.Controllers
         }
 
     }
+
 }
