@@ -25,7 +25,7 @@ namespace WebApi.Misc.Auth
         }
 
         /// <summary>
-        /// Compute's JWT token
+        /// Compute JWT token which contains user id
         /// </summary>
         /// <param name="privateKey"></param>
         /// <param name="userId"></param>
