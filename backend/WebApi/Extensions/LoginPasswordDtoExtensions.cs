@@ -2,7 +2,7 @@
 
 namespace WebApi.Extensions
 {
-    public static class AuthenticateRequestExtensions
+    public static class LoginPasswordDtoExtensions
     {
 
         /// <summary>

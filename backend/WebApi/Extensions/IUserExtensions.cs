@@ -2,7 +2,7 @@
 
 namespace WebApi.Extensions
 {
-    public static class UserExtensions
+    public static class IUserExtensions
     {
 
         /// <summary>
