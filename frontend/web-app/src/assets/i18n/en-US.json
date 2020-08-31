@@ -1,5 +1,30 @@
 {
+	"fDialog": {
+		"cancel": "Cancel",
+		"iConfirm": "",
+		"no": "No",
+		"yes": "Yes"
+	},
 	"navbar": {
 		"reportProblem": "Report problem"
+	},
+	"register": {
+		"checkAllFields": "Please check all fields",
+		"confirmPassword": "Confirm password",
+		"criticalError": "We've encountered critical error. Please contact Floiir administrator.",
+		"emailUsed": "This email was already used in Floiir. Please use another email address.",
+		"firstName": "First name",
+		"invKeyError": "Oops! We've encountered error with your invitation key. Please contact administrator.",
+		"invKeyInvalid": "Oops! It looks that this invitation key is invalid. Please contact the person who invited you.",
+		"invKeyNotFound": "Oops! Flooir did not find this invitation key. Please contact administrator.",
+		"invKeySuccess": "Welcome to Floiir! You was invited by: {{ fullName }}",
+		"invKeyUsed": "Oops! It looks that this invitation key was already used. Please contact the person who invited you.",
+		"lastName": "Last name",
+		"loginUsed": "This login was already used in Floiir. Please use another login.",
+		"password": "Password",
+		"passwordsDoNotMatch": "Passwords do not match",
+		"registerHeader": "Register",
+		"registerError": "Register error",
+		"submit": "Submit"
 	}
 }

@@ -1,0 +1,24 @@
+<h2>
+  <mat-icon class="icon" *ngIf="payload.type === DialogType.Info">info</mat-icon>
+  <mat-icon class="icon" *ngIf="payload.type === DialogType.Alert">warning</mat-icon>
+  <mat-icon class="icon" color="warn" *ngIf="payload.type === DialogType.Error">error</mat-icon>
+  <div class="icon-spacer"></div>
+  <div class="title">{{payload.title}}</div>
+</h2>
+
+<div mat-dialog-content>
+  <div class="text" *ngFor="let text of payload.texts">{{text}}</div>
+</div>
+<div class="small-spacer"></div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="dialogRef.close(true)">
+    <span *ngIf="payload.btnType === DialogButtonType.YesNo">{{ 'fDialog.yes' | translate }}</span>
+    <span *ngIf="payload.btnType === DialogButtonType.Ok">Ok</span>
+    <span style="color:#f44336"
+      *ngIf="payload.btnType === DialogButtonType.Confirm">{{ 'fDialog.iConfirm' | translate }}</span>
+  </button>
+  <button mat-raised-button (click)="dialogRef.close(null)">
+    <span *ngIf="payload.btnType === DialogButtonType.YesNo">{{ 'fDialog.no' | translate }}</span>
+    <span *ngIf="payload.btnType !== DialogButtonType.YesNo">{{ 'fDialog.cancel' | translate }}</span>
+  </button>
+</div>

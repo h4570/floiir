@@ -1,0 +1,52 @@
+@import './../../../scss/variables.scss';
+
+.header-row {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .header {
+        font-size: 24px;
+    }
+}
+
+.captcha-submit-container {
+    padding-top: 10px;
+}
+
+.submit-container {
+    @media only screen and (min-width: $breakpoint-small) {
+        height: 78px;
+    }
+
+    @media only screen and (min-width: $breakpoint-large) {
+        height: 78px;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    .submit-btn {
+        width: 100%
+    }
+
+}
+
+.terms {
+    height: 300px;
+
+    overflow: auto;
+
+    @media only screen and (min-width: $breakpoint-small) {
+        height: 397px;
+    }
+
+    @media only screen and (min-width: $breakpoint-large) {
+        height: 397px;
+    }
+}
+
+.form-field {
+    width: 100%;
+}
