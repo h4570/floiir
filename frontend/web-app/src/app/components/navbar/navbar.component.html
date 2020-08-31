@@ -1,6 +1,8 @@
 <header class="mat-elevation-z8">
 
-  <div class="header-container">
+  <div class="header-container" *ngIf='nav.isVisable()' [@inOutAnimation]>
+    <!-- (mouseleave)='nav.hide()' -->
+
 
     <div class="app-name-area">
       <div class="app-icon">
@@ -60,6 +62,10 @@
 
   </div>
 
-</header>
+  <!-- <div *ngIf='!nav.isVisable()' style="text-align: center;" (mouseenter)='nav.show()'>
+    <span class="material-icons">
+      arrow_circle_up
+    </span>
+  </div> -->
 
-<div style="height:80px;"></div>
+</header>

@@ -11,13 +11,14 @@ import { SharedModule } from './components/shared/shared.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
-
+import {MapModule} from './components/pages/map/map.module'
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     HomeModule,
+    MapModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
