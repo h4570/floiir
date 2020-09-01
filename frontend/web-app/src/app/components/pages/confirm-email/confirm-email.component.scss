@@ -1,0 +1,31 @@
+@import './../../../scss/variables.scss';
+
+.confirm-email-notification {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.confirm-email-text {
+    padding: 20px;
+    font-size: 16px;
+    color: $light-gray;
+}
+
+.confirm-email-resend {
+    padding: 0 20px 5px 20px;
+    font-size: 12px;
+
+    .send-again-text {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+}
+
+.material-icons {
+    vertical-align: middle !important;
+}
