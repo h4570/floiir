@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfirmEmailComponent } from './confirm-email.component';
-import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
@@ -10,7 +9,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   ],
   imports: [
     CommonModule,
-    MatIconModule,
     MatSnackBarModule,
   ]
 })
