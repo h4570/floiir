@@ -3,27 +3,27 @@
     <div class="spacer"></div>
 
     <div class="row">
+        <div class="col-12">
+            <div *ngIf="invKeyService.isSuccess" class="notification n-green">
+                {{ 'register.invKeySuccess' | translate:{'fullName':invKeyService.invitationKey.inviter.fullName} }}
+            </div>
 
-        <div *ngIf="invKeyService.isSuccess" class="col-12" class="notification n-green">
-            {{ 'register.invKeySuccess' | translate:{'fullName':invKeyService.invitationKey.inviter.fullName} }}
+            <div *ngIf="invKeyService.isError" class="notification n-red">
+                {{ 'register.invKeyError' | translate }}
+            </div>
+
+            <div *ngIf="invKeyService.wasKeyNotFound" class="notification n-red">
+                {{ 'register.invKeyNotFound' | translate }}
+            </div>
+
+            <div *ngIf="invKeyService.isKeyInvalid" class="notification n-red">
+                {{ 'register.invKeyInvalid' | translate }}
+            </div>
+
+            <div *ngIf="invKeyService.wasKeyUsed" class="notification n-red">
+                {{ 'register.invKeyUsed' | translate }}
+            </div>
         </div>
-
-        <div *ngIf="invKeyService.isError" class="col-12" class="notification n-red">
-            {{ 'register.invKeyError' | translate }}
-        </div>
-
-        <div *ngIf="invKeyService.wasKeyNotFound" class="col-12" class="notification n-red">
-            {{ 'register.invKeyNotFound' | translate }}
-        </div>
-
-        <div *ngIf="invKeyService.isKeyInvalid" class="col-12" class="notification n-red">
-            {{ 'register.invKeyInvalid' | translate }}
-        </div>
-
-        <div *ngIf="invKeyService.wasKeyUsed" class="col-12" class="notification n-red">
-            {{ 'register.invKeyUsed' | translate }}
-        </div>
-
     </div>
 
     <div class="row header-row" *ngIf="invKeyService.isSuccess">
