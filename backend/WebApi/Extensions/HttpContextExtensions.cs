@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using WebApi.Misc.Language;
+using WebApi.Misc.i18n;
 using WebApi.Models.Internal;
 
 namespace WebApi.Extensions

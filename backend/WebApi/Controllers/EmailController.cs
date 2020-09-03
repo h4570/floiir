@@ -26,9 +26,9 @@ namespace WebApi.Controllers
         public ContentResult Test()
         {
             var builder = new BlueGrayEmailBuilder();
-            var director = new EmailDirector(builder);
-            // TODO i18n
-            var emailHtml = director.GetConfirmEmailEmailHtml(HttpContext.GetUserLanguage(), HttpContext.GetUser());
+            var langFactory = HttpContext.GetUserLanguage().CreateFactory();
+            var director = new EmailDirector(builder, langFactory);
+            var emailHtml = director.GetConfirmEmailEmailHtml(HttpContext.GetUser());
             return new ContentResult
             {
                 ContentType = "text/html",

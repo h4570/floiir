@@ -1,4 +1,5 @@
-﻿using WebApi.Misc.Language;
+﻿using WebApi.Factories.i18n;
+using WebApi.Factories.i18n.Models;
 using WebApi.Models.Internal;
 
 namespace WebApi.Builders
@@ -8,13 +9,19 @@ namespace WebApi.Builders
     {
 
         private IEmailBuilder Builder { get; set; }
+        private I18nFactory I18nFactory { get; set; }
+        private I18nEmailModel I18n { get => I18nFactory.Content.Email; }
 
-        public EmailDirector(IEmailBuilder builder) { Builder = builder; }
+        public EmailDirector(IEmailBuilder builder, I18nFactory i18nFactory)
+        {
+            Builder = builder;
+            I18nFactory = i18nFactory;
+        }
 
-        public string GetConfirmEmailEmailHtml(Language language, User user)
+        public string GetConfirmEmailEmailHtml(User user)
         {
             Builder.Reinitialize();
-            Builder.AddHeader("Witamy!");
+            Builder.AddHeader(I18n.Welcome);
             Builder.AddCenteredImage("https://img.icons8.com/clouds/100/000000/handshake.png");
             Builder.AddText($"Cześć {user.FirstName} przykładowy tekst...");
             Builder.AddSpacer();
