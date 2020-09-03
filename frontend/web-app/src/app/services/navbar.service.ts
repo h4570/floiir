@@ -12,6 +12,6 @@ export class NavbarService {
 
     toggle(): void { this.visible = !this.visible; }
 
-    isVisable(): boolean { return this.visible; }
+    isVisible(): boolean { return this.visible; }
 
 }

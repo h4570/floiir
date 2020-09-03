@@ -1,35 +1,41 @@
 import * as L from 'leaflet';
-import { NavbarService } from 'src/app/services/navbar.service';
+import { MapService, MapGetResponse } from 'src/app/services/map.service';
 
 
 export class MapManager {
 
     private map = null;
+    public mapHttpService = new MapService();
     constructor(map) {
         this.map = map;
     }
 
+    /* set options of map and get tiles from API */
     public initMap(): void {
         this.map = L.map('map', {
             center: [39.8282, -98.5795],
             zoom: 3,
             zoomControl: false
         });
-        const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; Floiir'
+        this.mapHttpService.getTiles().then(response => {
+            if (response.responseCode === MapGetResponse.Success) {
+                const tiles = response.data;
+
+                tiles.addTo(this.map);
+            }
         });
         L.control.zoom({
             position: 'bottomleft'
         }).addTo(this.map);
-
-        tiles.addTo(this.map);
     }
 
+
+    /* Draw marker on map at X,Y cords*/
     public addMarker(x: number, y: number): void { // TODO add type of marker
         L.marker([39.8282, -98.5795]).addTo(this.map);
     }
 
+    /* Draw circle on map at X,Y cords and provided options*/
     public addCircle(x: number, y: number, options: L.CircleMarkerOptions, tooltip?: string, popout?: string): void {
         const circle = L.circleMarker([x, y], options);
         if (tooltip !== undefined) {
@@ -41,6 +47,7 @@ export class MapManager {
         circle.addTo(this.map);
     }
 
+    /* Draw custom polygon on map by array of cords and provided options*/
     public addPolygon(parameters: L.LatLngExpression[], options?: L.PolylineOptions, tooltip?: string, popout?: string): void {
         const polygon = L.polygon(parameters, options);
         if (tooltip !== undefined) {
@@ -56,8 +63,10 @@ export class MapManager {
     onMapClick(e): void {
         // alert("You clicked the map at " + e.latlng.toString());
     }
-    public addEvent(): void {
-        this.map.on('click', this.onMapClick);
+
+    /* Add a custom event on specific action and function */
+    public addEvent(action: string): void {
+        this.map.on(action, this.onMapClick);
     }
 
 }

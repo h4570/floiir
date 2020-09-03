@@ -32,7 +32,7 @@ export class MapComponent implements AfterViewInit {
   mapManager: MapManager;
   popup = L.popup();
   searchValue = '';
-  isMenuButtonDisable = false;
+  isMenuButtonDisabled = false;
 
   ngAfterViewInit(): void {
     this.navbarService.hide();
@@ -46,15 +46,15 @@ export class MapComponent implements AfterViewInit {
       color: 'blue'
     }, 'circle');
     this.mapManager.addPolygon([[1, 1], [3, 1], [3, 3], [1, 3]]);
-    this.mapManager.addEvent();
+    this.mapManager.addEvent('click');
   }
 
   menuToggle(): void {
-    if (!this.isMenuButtonDisable) {
+    if (!this.isMenuButtonDisabled) {
       this.navbarService.toggle();
-      this.isMenuButtonDisable = true;
+      this.isMenuButtonDisabled = true;
       setTimeout(() => {
-        this.isMenuButtonDisable = false;
+        this.isMenuButtonDisabled = false;
 
       }, 2000);
     }
