@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         [HttpGet("/invitation-keys")]
         public async Task<ActionResult<IEnumerable<InvitationKey>>> GetAll() // TODO REMOVE
         {
-            User user = (User)HttpContext.Items["User"];
+            var user = HttpContext.GetUser();
             return Ok(await _context.InvitationKeys.AsQueryable().ToListAsync());
         }
 
