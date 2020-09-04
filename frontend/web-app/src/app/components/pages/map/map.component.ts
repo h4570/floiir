@@ -17,7 +17,6 @@ const iconDefault = L.icon({
 });
 L.Marker.prototype.options.icon = iconDefault;
 
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -59,8 +58,5 @@ export class MapComponent implements AfterViewInit {
       }, 2000);
     }
   }
-
-
-
 
 }
