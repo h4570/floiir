@@ -1,6 +1,7 @@
-﻿using WebApi.Factories.i18n;
-using WebApi.Factories.i18n.Models;
+﻿using WebApi.Extensions;
+using WebApi.Factories.i18n;
 using WebApi.Models.Internal;
+using WebApi.Models.Internal.i18n;
 
 namespace WebApi.Builders
 {
@@ -10,7 +11,7 @@ namespace WebApi.Builders
 
         private IEmailBuilder Builder { get; set; }
         private I18nFactory I18nFactory { get; set; }
-        private I18nEmailModel I18n { get => I18nFactory.Content.Email; }
+        private I18nEmail I18n { get => I18nFactory.Content.Email; }
 
         public EmailDirector(IEmailBuilder builder, I18nFactory i18nFactory)
         {
@@ -21,11 +22,12 @@ namespace WebApi.Builders
         public string GetConfirmEmailEmailHtml(User user)
         {
             Builder.Reinitialize();
-            Builder.AddHeader(I18n.Welcome);
+            var headerText = I18n.HiUser.ReplaceI18nVar("user", user.FirstName);
+            Builder.AddHeader(headerText);
             Builder.AddCenteredImage("https://img.icons8.com/clouds/100/000000/handshake.png");
-            Builder.AddText($"Cześć {user.FirstName} przykładowy tekst...");
+            Builder.AddText(I18n.ConfirmEmailText);
             Builder.AddSpacer();
-            Builder.AddButton("Potwierdź email", "https://www.google.com/");
+            Builder.AddButton(I18n.ConfirmEmailButton, "https://www.google.com/");
             Builder.AddSpacer();
             return Builder.GetHTML();
         }

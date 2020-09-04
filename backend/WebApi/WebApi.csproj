@@ -37,37 +37,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="Factories\i18n\Languages\en_US\content.json">
+	  <Content Update="Resources\i18n\en_US.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Update="Factories\i18n\Languages\pl_PL\content.json">
+	  <Content Update="Resources\i18n\pl_PL.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="EmailTemplates\template-1.html">
+	  <None Update="Resources\EmailTemplates\BlueGray\beginning.html">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="EmailTemplates\BlueGray\beginning.html">
+	  <None Update="Resources\EmailTemplates\BlueGray\button.html">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="EmailTemplates\BlueGray\button.html">
+	  <None Update="Resources\EmailTemplates\BlueGray\centered-img.html">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="EmailTemplates\BlueGray\centered-img.html">
+	  <None Update="Resources\EmailTemplates\BlueGray\ending.html">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="EmailTemplates\BlueGray\ending.html">
+	  <None Update="Resources\EmailTemplates\BlueGray\header.html">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="EmailTemplates\BlueGray\header.html">
+	  <None Update="Resources\EmailTemplates\BlueGray\spacer.html">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="EmailTemplates\BlueGray\spacer.html">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="EmailTemplates\BlueGray\text.html">
+	  <None Update="Resources\EmailTemplates\BlueGray\text.html">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

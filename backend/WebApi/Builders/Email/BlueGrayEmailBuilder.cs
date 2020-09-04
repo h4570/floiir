@@ -12,7 +12,7 @@ namespace WebApi.Builders
 
         private const string BLUE = "#4a69bd";
         private const string GRAY = "#f4f4f4";
-        private const string RELATIVE_PATH = @"EmailTemplates\BlueGray\";
+        private const string RELATIVE_PATH = @"Resources\EmailTemplates\BlueGray\";
 
         public BlueGrayEmailBuilder() { HtmlParts = new List<string>(); }
 

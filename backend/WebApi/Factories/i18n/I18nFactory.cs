@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.IO;
 using System.Reflection;
-using WebApi.Factories.i18n.Models;
+using System.Text;
 using WebApi.Misc.i18n;
+using WebApi.Models.Internal.i18n;
 
 namespace WebApi.Factories.i18n
 {
@@ -13,7 +14,7 @@ namespace WebApi.Factories.i18n
         protected I18nFactory() { LoadContent(); }
 
         public abstract Language Language { get; }
-        public I18nModel Content { get; private set; }
+        public I18n Content { get; private set; }
         protected abstract string GetRelativeJsonContentPath();
 
         private void LoadContent()
@@ -24,7 +25,7 @@ namespace WebApi.Factories.i18n
                   GetRelativeJsonContentPath()
               );
             var json = File.ReadAllText(path);
-            Content = JsonConvert.DeserializeObject<I18nModel>(json);
+            Content = JsonConvert.DeserializeObject<I18n>(json);
         }
 
     }

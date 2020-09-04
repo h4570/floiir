@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using WebApi.Builders;
 using WebApi.Extensions;
 using WebApi.Misc.Auth;
-using WebApi.Models.Internal;
 
 namespace WebApi.Controllers
 {
@@ -26,8 +23,8 @@ namespace WebApi.Controllers
         public ContentResult Test()
         {
             var builder = new BlueGrayEmailBuilder();
-            var langFactory = HttpContext.GetUserLanguage().CreateFactory();
-            var director = new EmailDirector(builder, langFactory);
+            var i18n = HttpContext.GetUserLanguage().CreateFactory();
+            var director = new EmailDirector(builder, i18n);
             var emailHtml = director.GetConfirmEmailEmailHtml(HttpContext.GetUser());
             return new ContentResult
             {
