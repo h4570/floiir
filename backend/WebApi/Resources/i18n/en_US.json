@@ -1,0 +1,7 @@
+{
+    "email": {
+        "hiUser": "Hi {{user}}!",
+        "confirmEmailText": "We just need one small favor from you - please confirm your email, with button below. See you in Floiir!",
+        "confirmEmailButton": "Confirm email"
+    }
+}

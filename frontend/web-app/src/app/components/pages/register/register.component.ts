@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvitationKeyCheckerService } from 'src/app/services/invitation-key-checker.service';
-import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, ValidationErrors } from '@angular/forms';
 import { UserService, RegisterResponse } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';

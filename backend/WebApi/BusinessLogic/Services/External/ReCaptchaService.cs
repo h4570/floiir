@@ -1,15 +1,14 @@
 ﻿using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using WebApi.Models.External;
 
-namespace WebApi.Services.External
+namespace WebApi.BusinessLogic.Services.External
 {
     public class ReCaptchaService
     {
 
+        /// <exception cref="WebException">When request to google servers fail</exception>
         public async Task<bool> IsReCaptchaSucceed(string token, string secret, string host)
         {
             var client = new RestClient("https://www.google.com");
@@ -19,8 +18,9 @@ namespace WebApi.Services.External
             request.AddParameter("remoteip", host, ParameterType.QueryString);
             var res = await client.ExecuteAsync<ReCaptchaResponse>(request);
             if (res.IsSuccessful) return res.Data.Success;
-            else throw new Exception("ReCaptcha test - Request to google servers failed.");
+            else throw new WebException("ReCaptcha - Request to google servers failed.");
         }
 
     }
+
 }

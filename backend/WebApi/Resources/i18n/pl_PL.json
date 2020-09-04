@@ -1,0 +1,7 @@
+{
+    "email": {
+        "hiUser": "Cześć {{user}}!",
+        "confirmEmailText": "Mamy do Ciebie jeszcze jedną prośbę - proszę potwierdź swój email, klikając na przycisk poniżej. Widzimy się w Floiir!",
+        "confirmEmailButton": "Potwierdź email"
+    }
+}

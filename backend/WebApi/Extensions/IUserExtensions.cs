@@ -5,6 +5,8 @@ namespace WebApi.Extensions
     public static class IUserExtensions
     {
 
+        public static string GetFullName(this IUser user) => $"{user.FirstName} {user.LastName}";
+
         /// <summary>
         /// Checks if login exist and have proper length (max length defined by SQL column restriction)
         /// </summary>
