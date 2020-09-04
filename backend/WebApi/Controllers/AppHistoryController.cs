@@ -24,29 +24,6 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("table/{tableId}")]
-        public async Task<ActionResult<List<AppHistory>>> GetAll(int tableId)
-        {
-            var result = new List<AppHistory>()
-            {
-                new AppHistory()
-                {
-                    Id = 1,
-                    DateTime = DateTime.Now,
-                    TableId = (AppTable)tableId,
-                    Type = AppHistoryType.Add,
-                    UserId = 12
-                }
-            };
-            return Ok(result);
-            //return await _context
-            //    .AppHistory
-            //    .AsQueryable()
-            //    .Where(c => c.TableId == tableId)
-            //    .ToListAsync();
-        }
-
-        [HttpGet]
         [Route("table/{tableId}/element/{elementId}")]
         public async Task<ActionResult<List<AppHistory>>> GetAll(int tableId, int elementId)
         {

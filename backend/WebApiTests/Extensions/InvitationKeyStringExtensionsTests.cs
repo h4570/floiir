@@ -9,7 +9,7 @@ namespace WebApi.Extensions.Tests
     [TestClass()]
     public class InvitationKeyStringExtensionsTests
     {
-        [TestMethod()]
+        [TestMethod("IsInvKeyValid_StringTooLong")]
         public void IsInvKeyValid_StringTooLong_ReturnFalse()
         {
             string invKey = "12345678901";
@@ -17,15 +17,15 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(invKey.IsInvKeyValid());
         }
 
-        [TestMethod()]
-        public void IsInvKeyValid_StringTooShot_ReturnFalse()
+        [TestMethod("IsInvKeyValid_StringTooShort")]
+        public void IsInvKeyValid_StringTooShort_ReturnFalse()
         {
             string invKey = "123456789";
 
             Assert.IsFalse(invKey.IsInvKeyValid());
         }
 
-        [TestMethod()]
+        [TestMethod("IsInvKeyValid_GoodLenghtString")]
         public void IsInvKeyValid_GoodLenghtString_ReturnTrue()
         {
             string invKey = "1234567890";
