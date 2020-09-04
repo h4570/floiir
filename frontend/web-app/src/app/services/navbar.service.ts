@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class NavbarService {
-    private visible: boolean;
-    static instance: NavbarService;
+
     constructor() { this.visible = false; NavbarService.instance = this; }
+
+    public static instance: NavbarService;
+
+    private visible: boolean;
 
     hide(): void { this.visible = false; }
 
@@ -13,5 +16,4 @@ export class NavbarService {
     toggle(): void { this.visible = !this.visible; }
 
     isVisible(): boolean { return this.visible; }
-
 }

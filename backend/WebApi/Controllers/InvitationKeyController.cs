@@ -24,14 +24,6 @@ namespace WebApi.Controllers
             _context = new AppDbContext(options);
         }
 
-        [Authorize]
-        [HttpGet("/invitation-keys")]
-        public async Task<ActionResult<IEnumerable<InvitationKey>>> GetAll() // TODO REMOVE
-        {
-            User user = (User)HttpContext.Items["User"];
-            return Ok(await _context.InvitationKeys.AsQueryable().ToListAsync());
-        }
-
         /// <summary>
         /// Used for checking invitation key before registration
         /// </summary>

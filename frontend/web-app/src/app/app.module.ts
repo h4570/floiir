@@ -16,8 +16,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
 import { AuthGuard } from './auth-guard';
 import { JwtModule } from '@auth0/angular-jwt';
+import { MapModule } from './components/pages/map/map.module';
 
-import {MapModule} from './components/pages/map/map.module'
 @NgModule({
   declarations: [
     AppComponent

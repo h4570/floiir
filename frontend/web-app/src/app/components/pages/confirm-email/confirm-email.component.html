@@ -1,1 +1,22 @@
-<p>confirm-email works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="notification n-info confirm-email-notification">
+                Confirm email
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="confirm-email-text">
+                Thank you for registering. We sent an email to you.
+                Please check your inbox and find the confirmation email we've sent you.
+                If you cannot find the email within your inbox, please check your spam folder.
+                It can take up to 10 minutes to receive this email.
+            </div>
+
+            <div class="confirm-email-resend">
+                Didn't receive the email? <span class="send-again-text" (click)="onResendEmailClick()">Send it
+                    again</span>
+            </div>
+        </div>
+    </div>
+</div>

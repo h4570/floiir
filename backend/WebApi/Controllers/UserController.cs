@@ -2,16 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models.Internal;
-using System.Linq;
-using WebApi.Services.Internal;
 using Microsoft.Extensions.Options;
 using WebApi.Extensions;
 using WebApi.Dtos.Internal;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
-using WebApi.Services.External;
-using WebApi.Misc.Http;
 using WebApi.Misc.Auth;
+using System;
+using WebApi.BusinessLogic.Services.Internal;
+using WebApi.BusinessLogic.Services.External;
+using WebApi.BusinessLogic.Factories.i18n;
 
 namespace WebApi.Controllers
 {
@@ -24,19 +24,19 @@ namespace WebApi.Controllers
 
         private readonly AppDbContext _context;
         private readonly UserService _userService;
+        private readonly InvitationKeyService _invitationKeyService;
+        private readonly EmailService _emailService;
         private readonly ReCaptchaService _reCaptchaService;
-        private readonly string _salt;
-        private readonly string _privateKey;
-        private readonly string _reCaptchaSecret;
+        private readonly ConfigEnvironment _config;
 
         public UserController(DbContextOptions<AppDbContext> options, IOptions<ConfigEnvironment> config)
         {
             _context = new AppDbContext(options);
             _userService = new UserService(_context);
+            _invitationKeyService = new InvitationKeyService(_context);
+            _emailService = new EmailService(EmailType.BlueGray);
             _reCaptchaService = new ReCaptchaService();
-            _salt = config.Value.Salt;
-            _privateKey = config.Value.PrivateKey;
-            _reCaptchaSecret = config.Value.ReCaptchaSecret;
+            _config = config.Value;
         }
 
         /// <summary>
@@ -45,6 +45,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="payload">Dto which have new user model, reCatpcha token and invitation key</param>
         /// <returns>
+        /// 400 - when body payload is wrong or language header was not found
         /// 460 - when invitation key is invalid (Constants.INV_KEY_LENGTH), 
         /// 461 - when invitation key was not found in database, 
         /// 462 - when invitation key was used by another user, 
@@ -55,41 +56,30 @@ namespace WebApi.Controllers
         /// 200 - when user was created. JWT token response header is added here.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult<User>> Post([FromBody] UserRegisterDto payload)
+        public async Task<ActionResult<IUser>> Post([FromBody] UserRegisterDto payload)
         {
-            var host = HttpUtilities.GetHostFromRequestHeaders(Request.Headers);
-            var reCaptchaSucceed = await _reCaptchaService.IsReCaptchaSucceed(payload.ReCaptchaToken, _reCaptchaSecret, host);
+            var host = Request.Headers.GetHost();
+            I18nFactory i18n;
+            try { i18n = HttpContext.GetUserLanguage().CreateFactory(); } catch (Exception ex) { return BadRequest(ex.Message); }
+            var reCaptchaSucceed = await _reCaptchaService.IsReCaptchaSucceed(payload.ReCaptchaToken, _config.ReCaptchaSecret, host);
             if (reCaptchaSucceed)
             {
-                var payloadUser = payload.User;
-                payloadUser.TrimProperties();
-                if (payload.InvitationKey.IsInvKeyValid())
+                var keyResult = await _invitationKeyService.GetInvitationKeyIfIsRegisterReady_API(payload.InvitationKey);
+                if (keyResult.Succeed)
                 {
-                    var foundKeyObj = await _context.InvitationKeys.AsQueryable().SingleOrDefaultAsync(c => c.Key == payload.InvitationKey);
-                    if (foundKeyObj != null)
-                        if (foundKeyObj.UsedByUserId == null)
-                            if (payloadUser.IsValid())
-                                if (!_userService.EmailExists(payloadUser.Email))
-                                    if (!_userService.LoginExists(payloadUser.Login))
-                                    {
-                                        var newUser = payloadUser.ToUser();
-                                        newUser.Password = AuthUtilities.ComputeSha256Hash(payloadUser.Password, _salt);
-                                        payloadUser.Password = null;
-                                        await _context.Users.AddAsync(newUser);
-                                        await _context.SaveChangesAsync();
-                                        foundKeyObj.UsedByUserId = newUser.Id;
-                                        await _context.SaveChangesAsync();
-                                        var jwt = AuthUtilities.GenerateJWTToken(_privateKey, newUser.Id);
-                                        HttpContext.Response.Headers.Add("x-auth-token", $"{jwt}");
-                                        return Ok(payloadUser);
-                                    }
-                                    else return StatusCode(465, "There is already user with this login.");
-                                else return StatusCode(464, "There is already user with this email.");
-                            else return StatusCode(463, "User properties validation failed.");
-                        else return StatusCode(462, "Given invitation key was used.");
-                    else return StatusCode(461, "Given invitation key was not found.");
+                    payload.User.TrimProperties();
+                    var result = await _userService.TryRegister_API(payload.User, keyResult.Data, _config);
+                    if (result.Succeed)
+                    {
+                        var newUser = result.Data;
+                        var jwt = AuthUtilities.GenerateJWTToken(_config.PrivateKey, newUser.Id);
+                        HttpContext.Response.Headers.Add("x-auth-token", $"{jwt}");
+                        _emailService.SendConfirmEmailEmail(newUser, i18n);
+                        return Ok(newUser);
+                    }
+                    else return StatusCode(result.FailStatusCode, result.FailStatusMessage);
                 }
-                else return StatusCode(460, "Given invitation key is invalid.");
+                else return StatusCode(keyResult.FailStatusCode, keyResult.FailStatusMessage);
             }
             else return StatusCode(499, "ReCaptcha failed.");
         }
