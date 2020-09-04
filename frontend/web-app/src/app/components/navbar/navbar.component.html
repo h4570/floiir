@@ -1,6 +1,8 @@
 <header class="mat-elevation-z8">
 
-  <div class="header-container">
+  <div class="header-container" *ngIf='nav.isVisible()' [@inOutAnimation]>
+    <!-- (mouseleave)='nav.hide()' -->
+
 
     <div class="app-name-area">
       <div class="app-icon">
@@ -61,5 +63,3 @@
   </div>
 
 </header>
-
-<div style="height:80px;"></div>

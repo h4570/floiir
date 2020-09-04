@@ -1,0 +1,24 @@
+<div id="map"></div>
+<div class="search">
+    <mat-form-field appearance="fill">
+        <span class="material-icons searchIcon" matPrefix (click)="searchValue=''">
+            search
+        </span>
+        <mat-label>Search</mat-label>
+        <input matInput type="text" [(ngModel)]="searchValue">
+        <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+
+<div class="menu" (click)='menuToggle()'>
+    <div class="menuItems">
+        <span class="material-icons menuIcon">
+            menu
+        </span>
+        <span>
+            Menu
+        </span>
+    </div>
+</div>
