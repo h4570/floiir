@@ -1,6 +1,6 @@
-﻿using WebApi.Misc.i18n;
+﻿using WebApi.Models.Internal.i18n;
 
-namespace WebApi.Factories.i18n
+namespace WebApi.BusinessLogic.Factories.i18n
 {
     public class I18nPLFactory : I18nFactory
     {

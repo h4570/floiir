@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using System;
-using WebApi.Misc.i18n;
 using WebApi.Models.Internal;
+using WebApi.Models.Internal.i18n;
 
 namespace WebApi.Extensions
 {
@@ -41,9 +42,26 @@ namespace WebApi.Extensions
             else throw new LanguageHeaderNotFoundException("User-Language key was not found in request headers!");
         }
 
+        /// <summary>
+        /// Returns host from request headers.
+        /// Examples: "localhost", "google.com"
+        /// </summary>
+        /// <exception cref="NoOriginInHeadersException">When there is no origin in req headers</exception>
+        public static string GetHost(this IHeaderDictionary headers)
+        {
+            headers.TryGetValue("Origin", out StringValues originValues);
+            string dirty;
+            if (originValues.Count > 0)
+                dirty = originValues[0];
+            else throw new NoOriginInHeadersException("Origin was not found in request headers");
+            var clean = new Uri(dirty).Host;
+            return clean.ToString();
+        }
+
     }
 
     public class UserObjectNotFoundException : Exception { public UserObjectNotFoundException(string text) : base(text) { } }
+    public class NoOriginInHeadersException : Exception { public NoOriginInHeadersException(string text) : base(text) { } }
     public class LanguageNotSupportedException : Exception { public LanguageNotSupportedException(string text) : base(text) { } }
     public class LanguageHeaderNotFoundException : Exception { public LanguageHeaderNotFoundException(string text) : base(text) { } }
 

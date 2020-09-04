@@ -1,6 +1,6 @@
 ﻿using System;
-using WebApi.Factories.i18n;
-using WebApi.Misc.i18n;
+using WebApi.BusinessLogic.Factories.i18n;
+using WebApi.Models.Internal.i18n;
 
 namespace WebApi.Extensions
 {

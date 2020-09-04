@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace WebApi.Builders
+namespace WebApi.BusinessLogic.Builders.Email
 {
 
     public class BlueGrayEmailBuilder : IEmailBuilder

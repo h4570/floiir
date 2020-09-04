@@ -1,5 +1,4 @@
-﻿
-namespace WebApi.Misc.i18n
+﻿namespace WebApi.Models.Internal.i18n
 {
     public enum Language
     {

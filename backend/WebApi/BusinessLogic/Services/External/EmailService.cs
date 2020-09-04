@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApi.Builders;
-using WebApi.Factories.i18n;
+using WebApi.BusinessLogic.Builders.Email;
+using WebApi.BusinessLogic.Factories.i18n;
 using WebApi.Models.Internal;
 
-namespace WebApi.Services.External
+namespace WebApi.BusinessLogic.Services.External
 {
     public enum EmailType
     {
@@ -28,10 +25,11 @@ namespace WebApi.Services.External
             };
         }
 
-        public void SendConfirmEmailEmail(User user, I18nFactory i18nFactory)
+        public void SendConfirmEmailEmail(IUser user, I18nFactory i18nFactory)
         {
             var director = new EmailDirector(_emailBuilder, i18nFactory);
             var emailHtml = director.GetConfirmEmailEmailHtml(user);
+            // TODO, send email through Azure SendGrid
         }
 
     }

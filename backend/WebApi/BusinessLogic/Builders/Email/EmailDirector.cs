@@ -1,9 +1,9 @@
-﻿using WebApi.Extensions;
-using WebApi.Factories.i18n;
+﻿using WebApi.BusinessLogic.Factories.i18n;
+using WebApi.Extensions;
 using WebApi.Models.Internal;
 using WebApi.Models.Internal.i18n;
 
-namespace WebApi.Builders
+namespace WebApi.BusinessLogic.Builders.Email
 {
 
     public class EmailDirector
@@ -19,7 +19,7 @@ namespace WebApi.Builders
             I18nFactory = i18nFactory;
         }
 
-        public string GetConfirmEmailEmailHtml(User user)
+        public string GetConfirmEmailEmailHtml(IUser user)
         {
             Builder.Reinitialize();
             var headerText = I18n.HiUser.ReplaceI18nVar("user", user.FirstName);
