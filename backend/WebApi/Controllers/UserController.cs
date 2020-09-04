@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Http;
 using WebApi.Services.External;
 using WebApi.Misc.Http;
 using WebApi.Misc.Auth;
+using WebApi.Factories.i18n;
+using System;
 
 namespace WebApi.Controllers
 {
@@ -24,6 +26,7 @@ namespace WebApi.Controllers
 
         private readonly AppDbContext _context;
         private readonly UserService _userService;
+        private readonly EmailService _emailService;
         private readonly ReCaptchaService _reCaptchaService;
         private readonly string _salt;
         private readonly string _privateKey;
@@ -33,6 +36,7 @@ namespace WebApi.Controllers
         {
             _context = new AppDbContext(options);
             _userService = new UserService(_context);
+            _emailService = new EmailService(EmailType.BlueGray);
             _reCaptchaService = new ReCaptchaService();
             _salt = config.Value.Salt;
             _privateKey = config.Value.PrivateKey;
@@ -45,6 +49,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="payload">Dto which have new user model, reCatpcha token and invitation key</param>
         /// <returns>
+        /// 400 - when body payload is wrong or language header was not found
         /// 460 - when invitation key is invalid (Constants.INV_KEY_LENGTH), 
         /// 461 - when invitation key was not found in database, 
         /// 462 - when invitation key was used by another user, 
@@ -58,6 +63,8 @@ namespace WebApi.Controllers
         public async Task<ActionResult<User>> Post([FromBody] UserRegisterDto payload)
         {
             var host = HttpUtilities.GetHostFromRequestHeaders(Request.Headers);
+            I18nFactory i18n;
+            try { i18n = HttpContext.GetUserLanguage().CreateFactory(); } catch (Exception ex) { return BadRequest(ex.Message); }
             var reCaptchaSucceed = await _reCaptchaService.IsReCaptchaSucceed(payload.ReCaptchaToken, _reCaptchaSecret, host);
             if (reCaptchaSucceed)
             {
@@ -79,6 +86,7 @@ namespace WebApi.Controllers
                                         await _context.SaveChangesAsync();
                                         foundKeyObj.UsedByUserId = newUser.Id;
                                         await _context.SaveChangesAsync();
+                                        _emailService.SendConfirmEmailEmail(newUser, i18n);
                                         var jwt = AuthUtilities.GenerateJWTToken(_privateKey, newUser.Id);
                                         HttpContext.Response.Headers.Add("x-auth-token", $"{jwt}");
                                         return Ok(payloadUser);
