@@ -32,8 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
         MapComponent
     ],
     providers: [
-        AppHistoryService,
-        NavbarService
+        AppHistoryService
     ]
 })
 export class MapModule { }
