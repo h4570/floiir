@@ -25,6 +25,16 @@
             FailStatusMessage = message;
         }
 
+        /// <summary>
+        /// Cast method. Clones FailStatusCode and FailStatusMessage to new dto with another T param
+        /// </summary>
+        /// <typeparam name="T2"></typeparam>
+        /// <returns></returns>
+        public DataOrStatusCodeDto<T2> ToFailType<T2>()
+        {
+            return new DataOrStatusCodeDto<T2>(FailStatusCode, FailStatusMessage);
+        }
+
         public bool Succeed { get; private set; }
         public T Data { get; private set; }
         public int FailStatusCode { get; private set; }
