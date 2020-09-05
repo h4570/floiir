@@ -18,36 +18,30 @@ namespace WebApi.BusinessLogic.Services.Internal
         }
 
         /// <summary>
-        /// Tries to register user after validation.
+        /// Do couple of validations before entering new user to database.
         /// </summary>
-        /// <param name="payloadUser"></param>
-        /// <param name="invKey"></param>
         /// <returns>
-        /// 462 - when invitation key was used by another user, 
         /// 463 - when new user object properties are invalid, 
         /// 464 - when given email from new user object is already used, 
         /// 465 - when given login from new user object is already used
         /// </returns>
-        public async Task<DataOrStatusCodeDto<IUser>> TryRegister_API(UserDto payloadUser, InvitationKey invKey, ConfigEnvironment config)
+        public DataOrStatusCodeDto<IUser> ValidateBeforeRegister(UserDto payloadUser)
         {
-            if (invKey.UsedByUserId == null)
-                if (payloadUser.IsValid())
-                    if (!EmailExists(payloadUser.Email))
-                        if (!LoginExists(payloadUser.Login))
-                        {
-                            var newUser = payloadUser.ToUser();
-                            newUser.Password = AuthUtilities.ComputeSha256Hash(payloadUser.Password, config.Salt);
-                            payloadUser.Password = null;
-                            await _context.Users.AddAsync(newUser);
-                            await _context.SaveChangesAsync();
-                            invKey.UsedByUserId = newUser.Id;
-                            await _context.SaveChangesAsync();
-                            return new DataOrStatusCodeDto<IUser>(payloadUser);
-                        }
-                        else return new DataOrStatusCodeDto<IUser>(465, "There is already user with this login.");
-                    else return new DataOrStatusCodeDto<IUser>(464, "There is already user with this email.");
-                else return new DataOrStatusCodeDto<IUser>(463, "User properties validation failed.");
-            else return new DataOrStatusCodeDto<IUser>(462, "Given invitation key was used.");
+            if (payloadUser.IsValid())
+                if (!EmailExists(payloadUser.Email))
+                    if (!LoginExists(payloadUser.Login))
+                        return new DataOrStatusCodeDto<IUser>(payloadUser);
+                    else return new DataOrStatusCodeDto<IUser>(465, "There is already user with this login.");
+                else return new DataOrStatusCodeDto<IUser>(464, "There is already user with this email.");
+            else return new DataOrStatusCodeDto<IUser>(463, "User properties validation failed.");
+        }
+
+        public async Task<User> ComputePasswordHashAndAddUser(User user, ConfigEnvironment config)
+        {
+            user.Password = AuthUtilities.ComputeSha256Hash(user.Password, config.Salt);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return user;
         }
 
         private bool EmailExists(string email)

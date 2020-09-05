@@ -127,8 +127,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.controls.password.value,
       firstName: this.registerForm.controls.firstName.value,
       lastName: this.registerForm.controls.lastName.value,
-      email: this.registerForm.controls.email.value,
-      fullName: null
+      email: this.registerForm.controls.email.value
     };
   }
 
