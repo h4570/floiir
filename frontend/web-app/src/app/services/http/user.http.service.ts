@@ -18,7 +18,6 @@ export class UserHttpService {
     protected async post(invitationKey: string, reCaptchaToken: string, user: User): Promise<{ user: User, jwt: string }> {
         const uri = `user/`;
         const payload = { user, invitationKey, reCaptchaToken };
-        console.log(JSON.stringify(payload));
         return this.http
             .post<any>(`${environment.urls.api}` + uri, payload, { observe: 'response' })
             .toPromise()
