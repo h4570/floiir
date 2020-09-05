@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class NavbarService {
 
-    constructor() { this.visible = false; NavbarService.instance = this; }
-
-    public static instance: NavbarService;
+    constructor() { this.visible = true; }
 
     private visible: boolean;
 
