@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { AuthGuard } from './auth-guard';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MapModule } from './components/pages/map/map.module';
+import { NavbarService } from './services/navbar.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { MapModule } from './components/pages/map/map.module';
   providers: [
     AppService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    NavbarService
   ],
   bootstrap: [
     AppComponent
