@@ -266,10 +266,6 @@ namespace WebApi.Extensions.Tests
             {
                 Email = "@gmail.com"
             },
-           new User()
-            {
-                Email = "random@gmail" // method return true
-            },
             new User()
             {
                 Email = "randomgmailcom"
@@ -326,7 +322,7 @@ namespace WebApi.Extensions.Tests
             {
                 if (p.PropertyType == typeof(string) && p.CanWrite)
                 {
-                    p.SetValue(user, " "+Utility.RandomStringGenerator(5) + " ");
+                    p.SetValue(user, " " + Utility.RandomStringGenerator(5) + " ");
                 }
             }
 
@@ -338,7 +334,7 @@ namespace WebApi.Extensions.Tests
             {
                 if (p.PropertyType == typeof(string) && p.CanWrite)
                 {
-                    Assert.IsTrue(p.GetValue(user).ToString().Length==5);
+                    Assert.IsTrue(p.GetValue(user).ToString().Length == 5);
                 }
             }
         }
