@@ -15,8 +15,6 @@ export enum RegisterResponse {
     UnknownError
 }
 
-type SaveAuthTokenDelegate = (token: string) => void;
-
 @Injectable()
 export class UserService extends UserHttpService {
 
