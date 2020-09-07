@@ -1,3 +1,5 @@
+@import "./../../../scss/variables.scss";
+
 #map {
   position: absolute;
   top: 0;
@@ -10,13 +12,13 @@
 
 .search {
   position: absolute;
-  top: 10%;
-  width: 200px;
-  height: 100px;
+  top: 160px;
+  width: 75px;
+  height: 50px;
   z-index: 9999;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 25px;
+  font-size: 20px;
   align-items: center;
   justify-content: center
 }
@@ -24,59 +26,60 @@
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   // outline coolor
-  color: #60a3bc !important;
+  color: $light-navbar !important;
 }
 
 ::ng-deep .mat-form-field .mat-form-field-flex {
   /*change bgcolor of form field and round it*/
-  background-color: #60a3bc !important;
+  background-color: $light-navbar !important;
   border-radius: 12px !important;
   padding: 15px
 }
 
 ::ng-deep .mat-input-element {
   /* cursor of input*/
-  caret-color: #82ccdd !important;
+  caret-color: $light-navbar !important;
 }
 
 ::ng-deep .mat-form-field-underline {
   /*change color of underline*/
-  background-color: #60a3bc !important;
+  background-color: $light-navbar !important;
 }
 
 ::ng-deep .mat-form-field-ripple {
   /*change color of underline when focused*/
-  background-color: #60a3bc !important;
+  background-color: $light-navbar !important;
 }
 
 
 .searchIcon {
   margin-right: 20px;
-  font-size: 45px;
+  font-size: 30px;
   cursor: pointer;
-  border-right: 1px solid #60a3bc;
+  border-right: 1px solid $light-navbar;
 
 }
 
 .searchIcon:hover {
-  background-color: #509ab6;
+  background-color: $navbar-color;
 
 }
 
 .menu {
   position: absolute;
-  top: 10%;
-  width: 200px;
+  top: 175px;
+  width: 150px;
   z-index: 9999;
   padding: 15px 5px;
   left: 5%;
-  font-size: 35px;
+  height: 50px;
+  font-size: 25px;
   transform: translate(0, -50%);
   border-radius: 12px;
 }
 
 .menu:hover {
-  background-color: #60a3bc;
+  background-color: $light-navbar;
   cursor: pointer;
 }
 
