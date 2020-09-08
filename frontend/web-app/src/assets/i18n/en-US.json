@@ -17,7 +17,7 @@
 		"invKeyError": "Oops! We've encountered error with your invitation key. Please contact administrator.",
 		"invKeyInvalid": "Oops! It looks that this invitation key is invalid. Please contact the person who invited you.",
 		"invKeyNotFound": "Oops! Flooir did not find this invitation key. Please contact administrator.",
-		"invKeySuccess": "Welcome to Floiir! You was invited by: {{ fullName }}",
+		"invKeySuccess": "Welcome to Floiir! You was invited by: {{ firstName }}",
 		"invKeyUsed": "Oops! It looks that this invitation key was already used. Please contact the person who invited you.",
 		"lastName": "Last name",
 		"loginUsed": "This login was already used in Floiir. Please use another login.",

@@ -17,7 +17,7 @@
 		"invKeyError": "Ups! Napotkaliśmy błąd w podanym kluczu zapraszającym. Proszę, skontaktuj się z administratorem.",
 		"invKeyInvalid": "Ups! Podany klucz zapraszający jest nieprawidłowy. Proszę, skontaktuj się z osobą, która Cię zaprosiła.",
 		"invKeyNotFound": "Ups! Floiir nie znalazło podanego klucza zapraszającego. Proszę, skontaktuj się z administratorem.",
-		"invKeySuccess": "Witamy w Floiir! Zaproszenie od: {{ fullName }}",
+		"invKeySuccess": "Witamy w Floiir! Zaproszenie od: {{ firstName }}",
 		"invKeyUsed": "Ups! Wygląda na to, że podany klucz został już użyty. Proszę, skontaktuj się z osobą, która Cię zaprosiła.",
 		"lastName": "Nazwisko",
 		"loginUsed": "Ten login został już użyty w Floiir. Proszę wybierz inny login.",

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-12">
             <div *ngIf="invKeyService.isSuccess" class="notification n-green">
-                {{ 'register.invKeySuccess' | translate:{'fullName':invKeyService.invitationKey.inviter.fullName} }}
+                {{ 'register.invKeySuccess' | translate:{'firstName':invKeyService.invitationKey.inviter.firstName} }}
             </div>
 
             <div *ngIf="invKeyService.isError" class="notification n-red">

@@ -3,7 +3,7 @@ using WebApi.BusinessLogic.Builders.Email;
 using WebApi.BusinessLogic.Factories.i18n;
 using WebApi.Models.Internal;
 
-namespace WebApi.BusinessLogic.Services.External
+namespace WebApi.BusinessLogic.Services.Internal
 {
     public enum EmailType
     {

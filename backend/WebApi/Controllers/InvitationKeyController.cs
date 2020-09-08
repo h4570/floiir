@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApi.Models.Internal;
 using System.Linq;
 using WebApi.Extensions;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Cors;
-using WebApi.Misc.Auth;
 
 namespace WebApi.Controllers
 {
