@@ -1,11 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebApi.Models.Internal;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace WebApi.Controllers.Tests
@@ -19,12 +17,14 @@ namespace WebApi.Controllers.Tests
         [TestInitialize]
         public void Initialize()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(databaseName: "InMemoryDb").Options;
+            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             _context = new AppDbContext(options);
             appHistoryController = new AppHistoryController(options);
         }
 
-        [TestMethod("GetAll_Correct")]
+        #region GetAll
+
+        [TestMethod("GetAll_AddOneAppHistory")]
         public async Task GetAll_AddOneAppHistory_ReturnOneAppHistoryRow()
         {
             // arrange 
@@ -46,7 +46,7 @@ namespace WebApi.Controllers.Tests
             Assert.AreEqual(resultValue.Count(),1);
         }
 
-        [TestMethod("GetAll_WrongElement")]
+        [TestMethod("GetAll_SetWrongElement")]
         public async Task GetAll_SetWrongElement_ReturnEmptyAppHistory()
         {
             // arrange 
@@ -89,5 +89,7 @@ namespace WebApi.Controllers.Tests
             // assert
             Assert.AreEqual(resultValue.Count(), 0);
         }
+
+        #endregion
     }
 }

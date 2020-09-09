@@ -1,14 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WebApi.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WebApi.Extensions.Tests
 {
     [TestClass()]
     public class InvitationKeyStringExtensionsTests
     {
+        #region IsInvKeyValid
+
         [TestMethod("IsInvKeyValid_StringTooLong")]
         public void IsInvKeyValid_StringTooLong_ReturnFalse()
         {
@@ -32,5 +30,7 @@ namespace WebApi.Extensions.Tests
 
             Assert.IsTrue(invKey.IsInvKeyValid());
         }
+
+        #endregion
     }
 }

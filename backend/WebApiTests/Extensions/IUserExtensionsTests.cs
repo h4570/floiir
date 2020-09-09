@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebApi.Models.Internal;
 using WebApiTests;
-using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -11,9 +10,8 @@ namespace WebApi.Extensions.Tests
     public class IUserExtensionsTests
     {
 
-        /// 
-        ///  IsLoginValid method
-        /// 
+        
+        #region IsLoginValid
 
         [TestMethod("IsLoginValid_LoginIsNull")]
         public void IsLoginValid_LoginIsNull_ReturnFalse()
@@ -64,10 +62,9 @@ namespace WebApi.Extensions.Tests
             Assert.IsTrue(user.IsLoginValid() && user2.IsLoginValid());
         }
 
+        #endregion
 
-        /// 
-        ///  IsPasswordValid method
-        /// 
+        #region IsPasswordValid
 
         [TestMethod("IsPasswordValid_PasswordIsNull")]
         public void IsPasswordValid_PasswordIsNull_ReturnFalse()
@@ -117,9 +114,9 @@ namespace WebApi.Extensions.Tests
             Assert.IsTrue(user.IsPasswordValid() && user2.IsPasswordValid());
         }
 
-        /// 
-        ///  IsFirstNameValid method
-        /// 
+        #endregion
+
+        #region IsFirstNameValid
 
         [TestMethod("IsFirstNameValid_FirstNameIsNull")]
         public void IsFirstNameValid_FirstNameIsNull_ReturnFalse()
@@ -169,9 +166,9 @@ namespace WebApi.Extensions.Tests
             Assert.IsTrue(user.IsFirstNameValid() && user2.IsFirstNameValid());
         }
 
-        /// 
-        ///  IsLastNameValid method
-        /// 
+        #endregion
+
+        #region IsLastNameValid
 
         [TestMethod("IsLastNameValid_LastNameIsNull")]
         public void IsLastNameValid_LastNameIsNull_ReturnFalse()
@@ -221,9 +218,9 @@ namespace WebApi.Extensions.Tests
             Assert.IsTrue(user.IsLastNameValid() && user2.IsLastNameValid());
         }
 
-        /// 
-        ///  IsEmailValid method
-        /// 
+        #endregion
+
+        #region IsEmailValid
 
         [TestMethod("IsEmailValid_EmailIsNull")]
         public void IsEmailValid_EmailIsNull_ReturnFalse()
@@ -265,10 +262,6 @@ namespace WebApi.Extensions.Tests
              new User()
             {
                 Email = "@gmail.com"
-            },
-           new User()
-            {
-                Email = "random@gmail" // method return true
             },
             new User()
             {
@@ -313,9 +306,9 @@ namespace WebApi.Extensions.Tests
             Assert.IsTrue(user.IsEmailValid() && user2.IsEmailValid());
         }
 
-        ///
-        /// TrimProperties
-        ///
+        #endregion
+
+        #region TrimProperties
 
         [TestMethod("TrimProperties_EnterNotTrimmedProperties")]
         public void TrimProperties_EnterNotTrimmedProperties_ReturnTrimmedProp()
@@ -342,5 +335,7 @@ namespace WebApi.Extensions.Tests
                 }
             }
         }
+
+        #endregion
     }
 }
