@@ -68,7 +68,7 @@ namespace WebApi.BusinessLogic.Services.Internal.Tests
         }
 
         [TestMethod("ValidateAndReturnObject_passedNotExistingKey")]
-        public async Task ValidateAndReturnObject_passedNotExistingKey_return462Code()
+        public async Task ValidateAndReturnObject_passedNotExistingKey_return461Code()
         {
             // arrange
 
@@ -80,7 +80,7 @@ namespace WebApi.BusinessLogic.Services.Internal.Tests
         }
 
         [TestMethod("ValidateAndReturnObject_passedWorngLengthKey")]
-        public async Task ValidateAndReturnObject_passedWorngLengthKey_return462Code()
+        public async Task ValidateAndReturnObject_passedWorngLengthKey_return460Code()
         {
             // arrange
 
