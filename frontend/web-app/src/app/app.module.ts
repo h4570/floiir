@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './components/navbar/navbar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppService } from './services/app.service';
 import { AuthService } from './services/auth.service';
 import { HomeModule } from './components/pages/home/home.module';
@@ -17,6 +17,9 @@ import { environment } from 'src/environments/environment';
 import { AuthGuard } from './auth-guard';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MapModule } from './components/pages/map/map.module';
+import { NavbarService } from './services/navbar.service';
+import { AuthInterceptor } from './auth.interceptor';
+import { I18nInterceptor } from './i18n.interceptor';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { MapModule } from './components/pages/map/map.module';
   providers: [
     AppService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    NavbarService,
+    { provide: HTTP_INTERCEPTORS, useClass: I18nInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [
     AppComponent

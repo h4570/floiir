@@ -15,8 +15,6 @@ export enum RegisterResponse {
     UnknownError
 }
 
-type SaveAuthTokenDelegate = (token: string) => void;
-
 @Injectable()
 export class UserService extends UserHttpService {
 
@@ -25,11 +23,10 @@ export class UserService extends UserHttpService {
     }
 
     /** Register user in floiir. If call is successfull JWT token is saved in local storage */
-    public async register(key: string, recaptcha: string, user: User, saveToken: SaveAuthTokenDelegate): Promise<RegisterResponse> {
+    public async register(key: string, recaptcha: string, user: User): Promise<RegisterResponse> {
         return new Promise<RegisterResponse>(async (res) => {
             try {
-                const response = await this.post(key, recaptcha, user);
-                saveToken(response.jwt);
+                await this.post(key, recaptcha, user);
                 res(RegisterResponse.Success);
             } catch (err) {
                 if (err instanceof HttpErrorResponse) {

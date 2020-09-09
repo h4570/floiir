@@ -88,8 +88,7 @@ export class RegisterComponent implements OnInit {
         await this.userService.register(
           this.invKeyService.invitationKey.key,
           this.reCaptchaToken,
-          this.formUser,
-          this.authService.saveToken
+          this.formUser
         );
       if (result === RegisterResponse.Success)
         this.router.navigateByUrl('/confirm-email');
@@ -127,8 +126,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.controls.password.value,
       firstName: this.registerForm.controls.firstName.value,
       lastName: this.registerForm.controls.lastName.value,
-      email: this.registerForm.controls.email.value,
-      fullName: null
+      email: this.registerForm.controls.email.value
     };
   }
 
