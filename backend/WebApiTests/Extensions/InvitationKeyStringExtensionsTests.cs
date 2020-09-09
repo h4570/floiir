@@ -24,7 +24,7 @@ namespace WebApi.Extensions.Tests
         }
 
         [TestMethod("IsInvKeyValid_GoodLenghtString")]
-        public void IsInvKeyValid_GoodLenghtString_ReturnTrue()
+        public void IsInvKeyValid_GoodLengthString_ReturnTrue()
         {
             string invKey = "1234567890";
 

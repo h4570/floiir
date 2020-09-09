@@ -79,8 +79,8 @@ namespace WebApi.BusinessLogic.Services.Internal.Tests
             Assert.IsTrue(keyCheck.FailStatusCode == 461);
         }
 
-        [TestMethod("ValidateAndReturnObject_passedWorngLenghtKey")]
-        public async Task ValidateAndReturnObject_passedWorngLenghtKey_return462Code()
+        [TestMethod("ValidateAndReturnObject_passedWorngLengthKey")]
+        public async Task ValidateAndReturnObject_passedWorngLengthKey_return462Code()
         {
             // arrange
 

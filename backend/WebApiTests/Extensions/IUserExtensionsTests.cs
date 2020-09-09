@@ -46,8 +46,8 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(user.IsLoginValid());
         }
 
-        [TestMethod("IsLoginValid_GoodLenghtOfLogin")]
-        public void IsLoginValid_GoodLenghtOfLogin_ReturnTrue()
+        [TestMethod("IsLoginValid_GoodLengthOfLogin")]
+        public void IsLoginValid_GoodLengthOfLogin_ReturnTrue()
         {
             IUser user = new User()
             {
@@ -77,8 +77,8 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(user.IsPasswordValid());
         }
 
-        [TestMethod("IsPasswordValid_PasswordIsToShoort")]
-        public void IsPasswordValid_PasswordIsToShoort_ReturnFalse()
+        [TestMethod("IsPasswordValid_PasswordIsToShort")]
+        public void IsPasswordValid_PasswordIsToShort_ReturnFalse()
         {
             IUser user = new User()
             {
@@ -99,8 +99,8 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(user.IsPasswordValid());
         }
 
-        [TestMethod("IsPasswordValid_PasswordHasGoodLenght")]
-        public void IsPasswordValid_PasswordHasGoodLenght_ReturnTrue()
+        [TestMethod("IsPasswordValid_PasswordHasGoodLength")]
+        public void IsPasswordValid_PasswordHasGoodLength_ReturnTrue()
         {
             IUser user = new User()
             {
@@ -129,8 +129,8 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(user.IsFirstNameValid());
         }
 
-        [TestMethod("IsFirstNameValid_FirstNameIsToShoort")]
-        public void IsFirstNameValid_FirstNameIsToShoort_ReturnFalse()
+        [TestMethod("IsFirstNameValid_FirstNameIsToShort")]
+        public void IsFirstNameValid_FirstNameIsToShort_ReturnFalse()
         {
             IUser user = new User()
             {
@@ -151,8 +151,8 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(user.IsFirstNameValid());
         }
 
-        [TestMethod("IsFirstNameValid_FirstNameHasGoodLenght")]
-        public void IsFirstNameValid_FirstNameHasGoodLenght_ReturnTrue()
+        [TestMethod("IsFirstNameValid_FirstNameHasGoodLength")]
+        public void IsFirstNameValid_FirstNameHasGoodLength_ReturnTrue()
         {
             IUser user = new User()
             {
@@ -181,8 +181,8 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(user.IsLastNameValid());
         }
 
-        [TestMethod("IsLastNameValid_LastNameIsToShoort")]
-        public void IsLastNameValid_LastNameIsToShoort_ReturnFalse()
+        [TestMethod("IsLastNameValid_LastNameIsToShort")]
+        public void IsLastNameValid_LastNameIsToShort_ReturnFalse()
         {
             IUser user = new User()
             {
@@ -203,8 +203,8 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(user.IsLastNameValid());
         }
 
-        [TestMethod("IsLastNameValid_LastNameHasGoodLenght")]
-        public void IsLastNameValid_LastNameHasGoodLenght_ReturnTrue()
+        [TestMethod("IsLastNameValid_LastNameHasGoodLength")]
+        public void IsLastNameValid_LastNameHasGoodLength_ReturnTrue()
         {
             IUser user = new User()
             {
@@ -233,8 +233,8 @@ namespace WebApi.Extensions.Tests
             Assert.IsFalse(user.IsEmailValid());
         }
 
-        [TestMethod("IsEmailValid_EmailIsToShoort")]
-        public void IsEmailValid_EmailIsToShoort_ReturnFalse()
+        [TestMethod("IsEmailValid_EmailIsToShort")]
+        public void IsEmailValid_EmailIsToShort_ReturnFalse()
         {
             IUser user = new User()
             {
