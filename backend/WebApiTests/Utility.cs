@@ -21,7 +21,7 @@ namespace WebApiTests
         }
         public static ConfigEnvironment GetConfig()
         {
-            var path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\appsettings.json";
+            var path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "/appsettings.json";
             var json = File.ReadAllText(path);
             return JsonConvert.DeserializeObject<ConfigurationWrapper>(json).Configuration.Dev;
         }
