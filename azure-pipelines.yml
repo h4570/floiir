@@ -16,7 +16,7 @@ jobs:
     inputs:
         command: test
         projects: 'backend/WebApiTests'
-        arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/coverage.xml --logger trx
+        arguments: /p:CollectCoverage=true /p:ExcludeFromCoverage="$(System.DefaultWorkingDirectory)/backend/WebApi/Migrationsc/*" /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=./TestResults/coverage.xml --logger trx
         publishTestResults: true
     displayName: 'Test'
 
