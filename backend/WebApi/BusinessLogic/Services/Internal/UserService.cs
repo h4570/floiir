@@ -11,10 +11,14 @@ namespace WebApi.BusinessLogic.Services.Internal
     {
 
         private readonly AppDbContext _context;
+        private readonly string _salt;
+        private readonly string _privateKey;
 
-        public UserService(AppDbContext context)
+        public UserService(AppDbContext context,ConfigEnvironment config)
         {
             _context = context;
+            _salt = config.Salt;
+            _privateKey = config.PrivateKey;
         }
 
         /// <summary>
@@ -34,6 +38,20 @@ namespace WebApi.BusinessLogic.Services.Internal
                     else return new DataOrStatusCodeDto<IUser>(465, "There is already user with this login.");
                 else return new DataOrStatusCodeDto<IUser>(464, "There is already user with this email.");
             else return new DataOrStatusCodeDto<IUser>(463, "User properties validation failed.");
+        }
+
+        public DataOrStatusCodeDto<LoginSuccessResponseDto> Login(LoginPasswordDto payload)
+        {
+            payload.TrimProperties();
+            var hash = AuthUtilities.ComputeSha256Hash(payload.Password, _salt);
+            var user = _context.Users.SingleOrDefault(c => c.Login.Equals(payload.Login) && c.Password.Equals(hash));
+            if (user != null)
+            {
+                var jwt = AuthUtilities.GenerateJWTToken(_privateKey, user.Id);
+                var res = new LoginSuccessResponseDto(user, jwt);
+                return new DataOrStatusCodeDto<LoginSuccessResponseDto>(res);
+            }
+            else return new DataOrStatusCodeDto<LoginSuccessResponseDto>(461, "User does not exist");
         }
 
         public async Task<User> ComputePasswordHashAndAddUser(User user, ConfigEnvironment config)

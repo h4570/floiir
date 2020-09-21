@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { environment } from './../../../environments/environment';
-import { UserAdapter } from './../../adapters/user.adapter';
-import { User } from './../../models/user.model';
+import { environment } from '../../../environments/environment';
+import { UserAdapter } from '../../adapters/user.adapter';
+import { User } from '../../models/user.model';
 import { UserLoginDto } from 'src/app/dtos/user-login.dto';
 
 @Injectable()
-export class UserHttpService {
+export class AuthHttpService {
 
     private readonly adapter: UserAdapter;
 
@@ -16,12 +16,14 @@ export class UserHttpService {
         this.adapter = new UserAdapter();
     }
 
-    protected async post(invitationKey: string, reCaptchaToken: string, user: User): Promise<User> {
-        const uri = `user/`;
-        const payload = { user, invitationKey, reCaptchaToken };
+    protected async post(reCaptchaToken: string, login: string, password: string): Promise<UserLoginDto> {
+        const uri = `auth/`;
+        const payload = { login, password, reCaptchaToken };
+        console.log(environment.urls.api + uri);
         return this.http
             .post<any>(`${environment.urls.api}` + uri, payload)
             .toPromise()
             .then(resp => this.adapter.adapt(resp.body));
     }
+
 }

@@ -26,5 +26,9 @@
 		"registerHeader": "Register",
 		"registerError": "Register error",
 		"submit": "Submit"
+	},
+	"login": {
+		"login-title": "Login",
+		"password": "Password"
 	}
 }

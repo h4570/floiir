@@ -26,5 +26,9 @@
 		"registerHeader": "Rejestracja",
 		"registerError": "Błąd rejestracji",
 		"submit": "Wyślij"
+	},
+	"login": {
+		"login-title": "Zaloguj się",
+		"password": "Hasło"
 	}
 }

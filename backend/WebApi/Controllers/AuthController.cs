@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
+using WebApi.BusinessLogic.Facades;
 using WebApi.Dtos.Internal;
 using WebApi.Extensions;
 using WebApi.Misc.Auth;
@@ -17,14 +18,15 @@ namespace WebApi.Controllers
     {
 
         private readonly AppDbContext _context;
+        private readonly UserFacade _userFacade;
         private readonly string _privateKey;
-        private readonly string _salt;
 
         public AuthController(DbContextOptions<AppDbContext> options, IOptions<ConfigEnvironment> config)
         {
             _context = new AppDbContext(options);
             _privateKey = config.Value.PrivateKey;
-            _salt = config.Value.Salt;
+            _userFacade = new UserFacade(_context, config.Value);
+
         }
 
         /// <summary>
@@ -35,16 +37,10 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<LoginSuccessResponseDto>> Authorize([FromBody] LoginPasswordDto payload)
         {
-            payload.TrimProperties();
-            var hash = AuthUtilities.ComputeSha256Hash(payload.Password, _salt);
-            var user = await _context.Users.SingleOrDefaultAsync(c => c.Login.Equals(payload.Login) && c.Password.Equals(hash));
-            if (user != null)
-            {
-                var jwt = AuthUtilities.GenerateJWTToken(_privateKey, user.Id);
-                var res = new LoginSuccessResponseDto(user, jwt);
-                return Ok(res);
-            }
-            else return StatusCode(410, "Login failed.");
+            var host = Request.Headers.GetHost();
+            var result = await _userFacade.Login(payload, host);
+            return Ok(result);
+           
         }
 
     }

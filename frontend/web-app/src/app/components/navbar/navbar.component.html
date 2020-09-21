@@ -17,6 +17,8 @@
 
         <div class="nav-spacer"></div>
 
+        <button mat-button class="nav-btn" (click)="logIn()"> {{'login.login-title' | translate}}</button>
+
         <button mat-button class="nav-btn" [matMenuTriggerFor]="menu1"> Menu 1 </button>
 
         <button *ngIf="translate.currentLang==='en-US'" (click)="changeLang('pl-PL')" mat-button class="flag-btn">

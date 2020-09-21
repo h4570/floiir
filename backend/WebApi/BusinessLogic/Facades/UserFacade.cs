@@ -4,6 +4,7 @@ using WebApi.BusinessLogic.Services.External;
 using WebApi.BusinessLogic.Services.Internal;
 using WebApi.Dtos.Internal;
 using WebApi.Extensions;
+using WebApi.Misc.Auth;
 using WebApi.Models.Internal;
 
 namespace WebApi.BusinessLogic.Facades
@@ -17,9 +18,10 @@ namespace WebApi.BusinessLogic.Facades
         private readonly ReCaptchaService _reCaptchaService;
         private readonly ConfigEnvironment _config;
 
+
         public UserFacade(AppDbContext context, ConfigEnvironment config)
         {
-            _userService = new UserService(context);
+            _userService = new UserService(context,config);
             _invitationKeyService = new InvitationKeyService(context);
             _emailService = new EmailService(EmailType.BlueGray);
             _reCaptchaService = new ReCaptchaService();
@@ -42,6 +44,19 @@ namespace WebApi.BusinessLogic.Facades
                 result = new DataOrStatusCodeDto<IUser>(payload.User);
             }
             return result;
+        }
+
+        /// <summary>
+        /// 1. Checks ReCaptcha and all payload properties.
+        /// 2. Return user to frontend
+        /// </summary>
+        public async Task<DataOrStatusCodeDto<LoginSuccessResponseDto>> Login(LoginPasswordDto payload, string host)
+        {
+            var reCaptchaSucceed = await _reCaptchaService.IsReCaptchaSucceed(payload.ReCaptchaToken, _config.ReCaptchaSecret, host);
+            if (reCaptchaSucceed)
+                return _userService.Login(payload);
+            else return new DataOrStatusCodeDto<LoginSuccessResponseDto>(499, "ReCaptcha failed.");
+
         }
 
         /// <summary>

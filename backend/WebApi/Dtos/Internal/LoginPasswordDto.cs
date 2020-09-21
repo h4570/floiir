@@ -10,6 +10,9 @@ namespace WebApi.Dtos.Internal
 
         [Required]
         public string Password { get; set; }
+
+        public string ReCaptchaToken { get; set; }
+
     }
 
 }

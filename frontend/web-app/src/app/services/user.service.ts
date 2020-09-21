@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UserHttpService } from './http/user.http.service';
 import { User } from '../models/user.model';
+import { UserLoginDto } from '../dtos/user-login.dto';
 
 export enum RegisterResponse {
     Success,
@@ -14,6 +15,8 @@ export enum RegisterResponse {
     UnknownHttpError,
     UnknownError
 }
+
+
 
 @Injectable()
 export class UserService extends UserHttpService {
@@ -41,5 +44,6 @@ export class UserService extends UserHttpService {
             }
         });
     }
+
 
 }
