@@ -29,6 +29,7 @@
 	},
 	"login": {
 		"login-title": "Zaloguj się",
+		"logout-title": "Wyloguj się",
 		"password": "Hasło"
 	}
 }

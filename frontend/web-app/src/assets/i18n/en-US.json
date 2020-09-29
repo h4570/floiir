@@ -29,6 +29,7 @@
 	},
 	"login": {
 		"login-title": "Login",
+		"logout-title": "Logout",
 		"password": "Password"
 	}
 }

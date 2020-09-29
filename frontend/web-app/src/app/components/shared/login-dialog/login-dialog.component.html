@@ -34,6 +34,6 @@
 </div>
 <div class="small-spacer"></div>
 <div class="submit-container">
-  <button mat-raised-button type="submit" class="submit-btn" color="primary" [disabled]="!loginForm.valid"
-    [disabled]="loading">{{ 'register.submit' | translate }}</button>
+  <button mat-raised-button type="submit" class="submit-btn" (click)="onSubmit()" color="primary"
+    [disabled]="!loginForm.valid" [disabled]="loading">{{ 'register.submit' | translate }}</button>
 </div>

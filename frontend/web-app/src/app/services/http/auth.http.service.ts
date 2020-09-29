@@ -19,7 +19,6 @@ export class AuthHttpService {
     protected async post(reCaptchaToken: string, login: string, password: string): Promise<UserLoginDto> {
         const uri = `auth/`;
         const payload = { login, password, reCaptchaToken };
-        console.log(environment.urls.api + uri);
         return this.http
             .post<any>(`${environment.urls.api}` + uri, payload)
             .toPromise()

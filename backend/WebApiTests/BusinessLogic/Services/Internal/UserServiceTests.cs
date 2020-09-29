@@ -21,7 +21,7 @@ namespace WebApi.BusinessLogic.Services.Internal.Tests
         {
             var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             _context = new AppDbContext(options);
-            _userService = new UserService(_context);
+            _userService = new UserService(_context,_config);
             _config = Utility.GetConfig();
         }
 

@@ -38,6 +38,13 @@ export class AuthService extends AuthHttpService {
     public get token(): string | null {
         return localStorage.getItem('auth-token');
     }
+    public logOut(): void {
+        this.removeToken();
+    }
+
+    private removeToken(): void {
+        localStorage.removeItem('auth-token');
+    }
 
     /** Login user in floiir. If call is successfull JWT token is saved in local storage */
     public async login(recaptcha: string, login: string, password: string): Promise<LoginResponse> {
@@ -46,6 +53,8 @@ export class AuthService extends AuthHttpService {
                 await this.post(recaptcha, login, password);
                 res(LoginResponse.Success);
             } catch (err) {
+                console.log(err);
+
                 if (err instanceof HttpErrorResponse) {
                     if (err.status === 461) res(LoginResponse.UserNotFound);
                     else if (err.status === 499) res(LoginResponse.ReCaptchaError);

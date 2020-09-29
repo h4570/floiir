@@ -4,6 +4,7 @@ import { NavbarService } from '../../services/navbar.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../shared/login-dialog/login-dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -39,24 +40,29 @@ export class NavbarComponent {
 
   constructor(
     public readonly translate: TranslateService,
+    public readonly authService: AuthService,
     public nav: NavbarService,
     public dialog: MatDialog
-  ) { }
+  ) {
+  }
 
   public changeLang(language: string): void {
     localStorage.setItem('language', language);
     this.translate.use(language);
   }
   public logIn(): void {
-    const dialogRef = this.dialog.open(LoginDialogComponent, {
+    this.dialog.open(LoginDialogComponent, {
       width: '400px',
       data: {},
       position: { top: '100px' }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+
+
+  }
+
+  public logOut(): void {
+    this.authService.logOut();
   }
 
 }

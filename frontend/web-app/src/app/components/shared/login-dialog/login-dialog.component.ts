@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService, LoginResponse } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 
 
@@ -30,6 +31,7 @@ export class LoginDialogComponent {
     public readonly dialogRef: MatDialogRef<LoginDialogComponent>,
     public readonly translate: TranslateService,
     private readonly authService: AuthService,
+    private readonly router: Router
   ) { }
 
 
@@ -41,13 +43,18 @@ export class LoginDialogComponent {
    */
   public async onSubmit(): Promise<void> {
     this.trimForm();
-    await this.authService.login(
-      this.reCaptchaToken,
-      this.loginForm.controls.login.value,
-      this.loginForm.controls.password.value
-    );
-    if (!this.loginForm.invalid && this.reCaptchaToken) {
+    console.log('1');
 
+    if (!this.loginForm.invalid) {
+      const loginRequest = await this.authService.login(
+        this.reCaptchaToken,
+        this.loginForm.controls.login.value,
+        this.loginForm.controls.password.value
+      );
+      if (loginRequest === LoginResponse.Success) {
+        this.dialogRef.close();
+        this.router.navigateByUrl('/map');
+      }
     }
   }
 
