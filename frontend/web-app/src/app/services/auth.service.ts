@@ -38,8 +38,11 @@ export class AuthService extends AuthHttpService {
     public get token(): string | null {
         return localStorage.getItem('auth-token');
     }
+
+    /* Clear auth token and return to homepage */
     public logOut(): void {
         this.removeToken();
+        location.reload();
     }
 
     private removeToken(): void {

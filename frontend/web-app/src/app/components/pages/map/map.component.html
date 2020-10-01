@@ -1,11 +1,11 @@
 <div id="map"></div>
 <div class="search col-4">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="map-form">
         <span class="material-icons searchIcon" matPrefix (click)="searchValue=''">
             search
         </span>
-        <mat-label>Search</mat-label>
-        <input matInput type="text" [(ngModel)]="searchValue">
+        <mat-label>{{'mixed.search'|translate}}</mat-label>
+        <input matInput class="map-input" type="text" [(ngModel)]="searchValue">
         <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
             <mat-icon>close</mat-icon>
         </button>

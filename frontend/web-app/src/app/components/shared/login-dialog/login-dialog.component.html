@@ -1,33 +1,23 @@
-<h2>
+<h2 class="center-content">
   <mat-icon class="icon">login</mat-icon>
   <div class="icon-spacer"></div>
   <div class="title">{{'login.login-title' | translate}}</div>
 </h2>
 
-<div mat-dialog-content>
+<div mat-dialog-content class="row">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="on">
 
-    <div class="col-8">
-
-      <div class="col-12">
-
-        <mat-form-field class="form-field">
-          <mat-label>Login</mat-label>
-          <input matInput placeholder="Login" minlength="5" maxlength="20" formControlName="login" required
-            autocomplete="username">
-        </mat-form-field>
-
-      </div>
-
-      <div class="col-12">
-
-        <mat-form-field class="form-field">
-          <mat-label>{{ 'login.password' | translate }}</mat-label>
-          <input matInput type="password" placeholder="{{ 'login.password' | translate }}" minlength="6" maxlength="254"
-            required formControlName="password" autocomplete="new-password">
-        </mat-form-field>
-
-      </div>
+    <div class="center-content">
+      <mat-form-field class="form-field">
+        <mat-label>Login</mat-label>
+        <input matInput placeholder="Login" minlength="5" maxlength="20" formControlName="login" required
+          autocomplete="username">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>{{ 'login.password' | translate }}</mat-label>
+        <input matInput type="password" placeholder="{{ 'login.password' | translate }}" minlength="6" maxlength="254"
+          required formControlName="password" autocomplete="new-password">
+      </mat-form-field>
     </div>
   </form>
 

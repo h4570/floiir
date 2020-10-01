@@ -43,8 +43,7 @@ export class NavbarComponent {
     public readonly authService: AuthService,
     public nav: NavbarService,
     public dialog: MatDialog
-  ) {
-  }
+  ) { }
 
   public changeLang(language: string): void {
     localStorage.setItem('language', language);

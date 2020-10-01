@@ -31,5 +31,8 @@
 		"login-title": "Login",
 		"logout-title": "Logout",
 		"password": "Password"
+	},
+	"mixed": {
+		"search": "Search"
 	}
 }

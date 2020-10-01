@@ -39,6 +39,7 @@ namespace WebApi.Controllers
         {
             var host = Request.Headers.GetHost();
             var result = await _userFacade.Login(payload, host);
+            HttpContext.Response.Headers.Add("x-auth-token", $"{result.Data.Token}");
             return Ok(result);
            
         }

@@ -1,3 +1,5 @@
+@import './../../../scss/variables.scss';
+
 .icon {
   font-size: 36px;
   width: 36px;
@@ -7,14 +9,13 @@
 }
 
 .icon-spacer {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 35px;
   display: inline-block
 }
 
 .title {
   display: inline-block;
-  position: absolute;
   margin-top: 3px;
   margin-right: 3px;
 }
@@ -22,4 +23,39 @@
 .text {
   font-size: 18px;
   padding: 0px 5px 0px 5px;
+}
+
+.login-form {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-content {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-field {
+  width: 80%;
+}
+
+.submit-container {
+  @media only screen and (min-width: $breakpoint-small) {
+    height: 78px;
+  }
+
+  @media only screen and (min-width: $breakpoint-large) {
+    height: 78px;
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .submit-btn {
+    width: 100px
+  }
+
 }
